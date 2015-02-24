@@ -1,3 +1,4 @@
+#added commment bitches
 #coding: utf8
 #D&D simple character generator
 import hashmap
