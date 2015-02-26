@@ -1,3 +1,6 @@
+#I did NOT write this, I copied it as part of a learning exercize from
+#http://learnpythonthehardway.org/book/ex39.html
+
 def new(num_buckets=256):
     '''Initializes a map with the given number of buckets'''
     aMap = []
