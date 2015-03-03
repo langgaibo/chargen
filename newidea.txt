@@ -1,0 +1,7 @@
+From ex38 in tutorial, got idea for chargen:
+
+Return Stats in order "Str, Int" or whatever, as a list (or) as a string.
+After the dice roll, I could find a way to assign the dice rolls (which could
+print in an "implied" order) to an ordered Stat list... maybe by doing it 
+behind the scenes by pulling the key (stat) values from dict, ordering them,
+then just printing the two lists in a special function after all that!!!
