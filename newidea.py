@@ -30,7 +30,6 @@ while len(stuff) != 10:
 	#note: list.pop() REMOVES the popped item from the list!
 	next_one = more_stuff.pop()
 	stuff.append(next_one)
-	print "There are %d items now." % len(stuff)
 
 # list[-x] returns positions counted backwards from the end of a list:
 print stuff[-1]
