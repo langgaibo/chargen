@@ -1,5 +1,6 @@
-#coding: utf8
-#D&D simple character generator
+# coding: utf8
+# D&D simple character generator
+# 朗盖博 2015
 
 from random import randint
 from sys import exit
