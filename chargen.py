@@ -35,21 +35,32 @@ def attlist():
 
 def basestat():
 	baseroll = [randint(1,6) for i in range(0,4)]
-	print 'debug: baseroll = %r' % baseroll
 	delroll = min(baseroll)
 	baseroll.remove(delroll)
-	print 'debug: baseroll - delroll = %r' % baseroll
 	basestat = sum(baseroll)
-	print 'debug: basestat = %r' % basestat
 	#Thu Mar  5 01:27:21 UTC 2015
-	#tried removing this "return" call and got "none" for bstats list values in starter()
+	#tried removing this "return" call and got "none" for 
+	#bstats list values in starter()
 	return basestat
+
+def mod():
+	basestat = basestat()
+	if basestat == 9:
+		mod = 1
+	else:
+		mod = ((int(basestat) - 10) / 2)
+	return mod
 
 def stats():
 	# I get to keep this beautiful list comprehension
 	statlist = [basestat() for i in range(0,6)]
-	return statlist
-
+	modlist = [mod() for i in statlist]
+	print statlist
+	print modlist
+	# Thu Mar  5 04:05:07 UTC 2015
+	# I think this is gonna work!
+	# I'm doing a git commit
+	exit(0)
 '''
 def debug():
 	#attlist()
@@ -59,14 +70,11 @@ def debug():
 '''
 
 def starter():
-	bstats = [basestat() for i in range(0,6)]
-	print 'debug: bstats built from iterating basestat() into a list returns:'
-	print bstats
-	print '\n\n\ndebug: just pulling from stats() to get the statlist first:'
-	cstats = stats()
-	print cstats
-	print '\n\n\n'
+	#bstats = stats()
+	#print '\ndebug: just pulling from stats() to get the statlist first:'
+	#print bstats
 	#bstats.reverse()
+	stats()
 '''
 	hashmap.set(stats, 'Str', bstats.pop())
 	hashmap.set(stats, 'Con', bstats.pop())
