@@ -1,12 +1,12 @@
 # coding: utf8
-# D&D simple character generator
-# 朗盖博 2015
-
 from random import randint
 from sys import exit
 # I cheated. I got all the data I wanted, but I didn't figure out
 # how to present it on my own.
 from collections import OrderedDict
+
+print 'D&D simple character generator'
+print '朗盖博 2015'
 
 prompt = '>: '
 
