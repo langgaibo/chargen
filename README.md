@@ -13,7 +13,6 @@ I don't even play these games!
 
 * There is no setup.
 * There is no configuration.
-* At time of writing, one .py module imports the hashmap.py module, which was copied from Zed Shaw here: http://learnpythonthehardway.org/book/ex39.html
 
 ### Contribution guidelines ###
 
