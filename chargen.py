@@ -1,4 +1,3 @@
-#added commment bitches
 #coding: utf8
 #D&D simple character generator
 
@@ -36,32 +35,37 @@ def basestat():
 	basestat = sum(baseroll)
 	return basestat
 
-def mod():
-	stat = basestat()
-	if stat == 9:
-		mod = 1
-	else:
-		mod = ((int(stat) - 10) / 2)
-	return mod
-
 def stats():
 	a = attlist()
 	s = [basestat() for i in range(0,6)]
-	modlist = [mod() for i in s]
-	modtotal = sum(modlist)
 	stats = OrderedDict(zip(a, s))
+	modlist = []
+
+	for i in s:
+		if i == 9:
+			mod = 1
+			modlist.append(mod)
+		else:
+			mod = ((int(i) - 10) / 2)
+			modlist.append(mod)
+	
+	modtotal = sum(modlist)
+
 	if modtotal > 2:
-		print 'Stats ='
+		print '\nStats\n------------'
 		for k, v in stats.items():
 			print k, v
-		print 'Mod total = %i' % modtotal
+		print '\nMods\n------------\n%r' % modlist
+		print 'Mod total: %i\n' % modtotal
 		start()
 	else:	
-		print 'Stats ='
+		print 'Stats\n------------'
 		for k, v in stats.items():
 			print k, v
-		print '\n\nTotal mods = %i \n\nShit Mods! Rerolling!\n' % modtotal
-		stats()
+		print '\nMods\n------------\n%r' % modlist
+		print 'Mod total: %i' % modtotal
+		print 'Shit Mods! Rerolling!\n' 
+		start()
 
 start()
 
