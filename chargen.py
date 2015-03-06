@@ -76,7 +76,6 @@ def zip_all():
 	length = len(a)
 	for i in range(length):
 		combined.append((a[i], s[i], w[i], m[i]))
-		print combined
 	return combined, mt
 
 def final():
