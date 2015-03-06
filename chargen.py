@@ -28,8 +28,13 @@ def mainmenu():
 		start()
 
 def att_words():
-	a_w = ['Strength', 'Constitution', 'Dexterity', 'Wisdom', 
-	'Intelligence', 'Charisma']
+	a_w = [
+		'Strength    ',
+		'Constitution',
+		'Dexterity   ',
+		'Wisdom      ',
+		'Intelligence',
+		'Charisma    ']
 	return a_w
 
 def mod_words():
@@ -53,12 +58,12 @@ def statlist():
 def modlist():
 	to_mod = statlist()
 	modlist = []
-	for i in to_mod:
-		if i == 9:
+	for stat in to_mod:
+		if stat == 9:
 			mod = 1
 			modlist.append(mod)
 		else:
-			mod = ((int(i) - 10) / 2)
+			mod = (stat - 10) / 2
 			modlist.append(mod)
 	modtotal = sum(modlist)
 	return to_mod, modlist, modtotal
@@ -71,14 +76,15 @@ def zip_all():
 	length = len(a)
 	for i in range(length):
 		combined.append((a[i], s[i], w[i], m[i]))
+		print combined
 	return combined, mt
 
 def final():
 	block, modtotal = zip_all()
-	for i in block:
+	for line in block:
 		temp = []
-		for x in i:
-			temp.append(str(x))
+		for chunk in line:
+			temp.append(str(chunk))
 		print ' '.join(temp)
 	return modtotal
 
