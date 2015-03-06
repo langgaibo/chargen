@@ -39,6 +39,12 @@ def basestat():
 def stats():
 	a = attlist()
 	s = [basestat() for i in range(0,6)]
+	# This OrderedDict(zip(a, s)) function is how I "cheated",
+	# I couldn't invent my own way of doing this with 2 lists or even
+	# a regular dictionary, NOR could I work out a way to iterate
+	# a list into a dictionary or an OrderedDict.
+	# I guess the programmer way would be to write a "zip" function
+	# from scratch
 	stats = OrderedDict(zip(a, s))
 	modlist = []
 
