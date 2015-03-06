@@ -1,12 +1,15 @@
 # coding: utf8
+'''
+I figured out my own ugly zip() function and learned a lot
+about passing args properly and converting between lists, 
+tuples, and strings.
+My goal was to get rid of the OrderedDict function and I did it!
+'''
 from random import randint
 from sys import exit
-# I cheated. I got all the data I wanted, but I didn't figure out
-# how to present it on my own.
-from collections import OrderedDict
 
 print 'D&D simple character generator'
-print '朗盖博 2015'
+print 'version 0.2 朗盖博 2015'
 
 prompt = '>: '
 
@@ -17,17 +20,24 @@ def mainmenu():
 	print 'Input "r" to roll base stats, or "q" to quit.'
 	choice = raw_input(prompt)
 	if 'r' in choice:
-		stats()
+		judgement()
 	elif 'q' in choice:
 		exit(0)
 	else:
 		print 'What the fuck are you talking about? Try again.'
 		start()
 
-def attlist():
-	attlist = ['Strength', 'Constitution', 'Dexterity', 'Wisdom', 
+def att_words():
+	a_w = ['Strength', 'Constitution', 'Dexterity', 'Wisdom', 
 	'Intelligence', 'Charisma']
-	return attlist
+	return a_w
+
+def mod_words():
+	m_w = []
+	for i in range(0,6):
+		word = ' Mod:'
+		m_w.append(word.rjust(18, '-'))
+	return m_w
 
 def basestat():
 	baseroll = [randint(1,6) for i in range(0,4)]
@@ -36,44 +46,52 @@ def basestat():
 	basestat = sum(baseroll)
 	return basestat
 
-def stats():
-	a = attlist()
-	s = [basestat() for i in range(0,6)]
-	# This OrderedDict(zip(a, s)) function is how I "cheated",
-	# I couldn't invent my own way of doing this with 2 lists or even
-	# a regular dictionary, NOR could I work out a way to iterate
-	# a list into a dictionary or an OrderedDict.
-	# I guess the programmer way would be to write a "zip" function
-	# from scratch
-	stats = OrderedDict(zip(a, s))
-	modlist = []
+def statlist():
+	statlist = [basestat() for i in range(0,6)]
+	return statlist
 
-	for i in s:
+def modlist():
+	to_mod = statlist()
+	modlist = []
+	for i in to_mod:
 		if i == 9:
 			mod = 1
 			modlist.append(mod)
 		else:
 			mod = ((int(i) - 10) / 2)
 			modlist.append(mod)
-	
 	modtotal = sum(modlist)
+	return to_mod, modlist, modtotal
 
-	if modtotal > 2:
-		print '\nStats\n------------'
-		for k, v in stats.items():
-			print k, v
-		print '\nMods\n------------\n%r' % modlist
-		print 'Mod total: %i\n' % modtotal
-		start()
-	else:	
-		print 'Stats\n------------'
-		for k, v in stats.items():
-			print k, v
-		print '\nMods\n------------\n%r' % modlist
-		print 'Mod total: %i' % modtotal
-		print 'Shit Mods! Rerolling!\n' 
-		start()
+def zip_all():
+	a = att_words()
+	s, m, mt = modlist()
+	w = mod_words()
+	combined = []
+	length = len(a)
+	for i in range(length):
+		combined.append((a[i], s[i], w[i], m[i]))
+	return combined, mt
+
+def final():
+	block, modtotal = zip_all()
+	for i in block:
+		temp = []
+		for x in i:
+			temp.append(str(x))
+		print ' '.join(temp)
+	return modtotal
+
+def judgement():
+	print ''
+	mt = final()
+	print '\nTotal mods = %i' % mt
+	if mt >=3 and mt <= 6:
+		print 'Decent rolls.\n'
+	elif mt > 6:
+		print 'Great rolls!\n'
+	else:
+		print 'Shit rolls!\n'
+	start()
 
 start()
-
-#todo - racial modifiers
