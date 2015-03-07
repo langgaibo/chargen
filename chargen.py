@@ -50,9 +50,9 @@ def statlist():
 	return statlist
 
 def modlist():
-	to_mod = statlist()
+	stat_list = statlist()
 	modlist = []
-	for stat in to_mod:
+	for stat in stat_list:
 		if stat == 9:
 			mod = 1
 			modlist.append(mod)
@@ -60,17 +60,17 @@ def modlist():
 			mod = (stat - 10) / 2
 			modlist.append(mod)
 	modtotal = sum(modlist)
-	return to_mod, modlist, modtotal
+	return stat_list, modlist, modtotal
 
 def zip_all():
 	a = att_words()
-	s, m, mt = modlist()
+	s, m, modtotal = modlist()
 	w = mod_words()
-	combined = []
+	block = []
 	length = len(a)
 	for i in range(length):
-		combined.append((a[i], s[i], w[i], m[i]))
-	return combined, mt
+		block.append((a[i], s[i], w[i], m[i]))
+	return block, modtotal
 
 def final():
 	block, modtotal = zip_all()
@@ -79,19 +79,22 @@ def final():
 		for chunk in line:
 			temp.append(str(chunk))
 		print ' '.join(temp)
-	return modtotal
+	return block, modtotal
 
 def judgement():
 	print ''
-	mt = final()
-	print '\nTotal mods = %i' % mt
-	if mt >=3 and mt <= 6:
+	block, modtotal = final()
+	print '\nTotal mods = %i' % modtotal
+	if modtotal >=3 and modtotal <= 6:
 		print 'Decent rolls.\n'
-	elif mt > 6:
+	elif modtotal > 6:
 		print 'Great rolls!\n'
 	else:
 		print 'Shit rolls!\n'
-	start()
+	return block, modtotal
+	# debug:
+	exit(0)
+
 '''
 def human():
 	# +1 to all six ability scores
@@ -129,6 +132,8 @@ def half-orc():
 
 def tiefling():
 	# +1 int, +2 cha
-'''
 
+def select_race():
+	block, modtotal = judgement()
+'''
 start()
