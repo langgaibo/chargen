@@ -1,25 +1,26 @@
 # coding: utf8
+
 from random import randint
 from sys import exit
 
 print 'D&D simple character generator'
 print 'version 0.2 朗盖博 2015'
 
+statlist = None
+stype = type(statlist)
+print 'debug - statlist starts as %r and is %r' % (statlist, stype)
 prompt = '>: '
 
-def start():
-	mainmenu()
+def basestat():
+	baseroll = [randint(1,6) for i in range(0,4)]
+	delroll = min(baseroll)
+	baseroll.remove(delroll)
+	basestat = sum(baseroll)
+	return basestat
 
-def mainmenu():
-	print 'Input "r" to roll base stats, or "q" to quit.'
-	choice = raw_input(prompt)
-	if 'r' in choice:
-		judgement()
-	elif 'q' in choice:
-		exit(0)
-	else:
-		print 'What the fuck are you talking about? Try again.'
-		start()
+def statlist():
+	global statlist
+	statlist = [basestat() for i in range(0,6)]
 
 def att_words():
 	a_w = [
@@ -38,21 +39,11 @@ def mod_words():
 		m_w.append(word.rjust(18, '-'))
 	return m_w
 
-def basestat():
-	baseroll = [randint(1,6) for i in range(0,4)]
-	delroll = min(baseroll)
-	baseroll.remove(delroll)
-	basestat = sum(baseroll)
-	return basestat
-
-def statlist():
-	statlist = [basestat() for i in range(0,6)]
-	return statlist
-
 def modlist():
-	stat_list = statlist()
+	global statlist
+	stats = statlist
 	modlist = []
-	for stat in stat_list:
+	for stat in stats:
 		if stat == 9:
 			mod = 1
 			modlist.append(mod)
@@ -60,11 +51,13 @@ def modlist():
 			mod = (stat - 10) / 2
 			modlist.append(mod)
 	modtotal = sum(modlist)
-	return stat_list, modlist, modtotal
+	return modlist, modtotal
 
 def zip_all():
+	global statlist
+	s = statlist
 	a = att_words()
-	s, m, modtotal = modlist()
+	m, modtotal = modlist()
 	w = mod_words()
 	block = []
 	length = len(a)
@@ -79,11 +72,11 @@ def final():
 		for chunk in line:
 			temp.append(str(chunk))
 		print ' '.join(temp)
-	return block, modtotal
+	return modtotal
 
 def judgement():
 	print ''
-	block, modtotal = final()
+	modtotal = final()
 	print '\nTotal mods = %i' % modtotal
 	if modtotal >=3 and modtotal <= 6:
 		print 'Decent rolls.\n'
@@ -91,9 +84,13 @@ def judgement():
 		print 'Great rolls!\n'
 	else:
 		print 'Shit rolls!\n'
-	return block, modtotal
-	# debug:
-	exit(0)
+	print 'debug - clearing global variable statlist'
+	global statlist
+	statlist = None
+	fstype = type(statlist)
+	print 'debug - statlist is now %r and is %r' % (statlist, fstype)
+	print fstype
+	mainmenu()
 
 '''
 def human():
@@ -134,6 +131,18 @@ def tiefling():
 	# +1 int, +2 cha
 
 def select_race():
-	block, modtotal = judgement()
+	# durrr
 '''
-start()
+def mainmenu():
+	print 'Input "r" to roll base stats, or "q" to quit.'
+	choice = raw_input(prompt)
+	if 'r' in choice:
+		statlist()
+		judgement()
+	elif 'q' in choice:
+		exit(0)
+	else:
+		print 'What the fuck are you talking about? Try again.'
+		mainmenu()
+
+mainmenu()
