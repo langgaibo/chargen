@@ -98,5 +98,43 @@ def judgement():
 	else:
 		print 'Shit rolls!\n'
 	start()
+'''
+def human():
+	# +1 to all six ability scores
+	# +1 to any two ability scores of your choice
+
+def aasimar():
+	# +2 charisma
+
+def dragonborn():
+	# +2 Strength, +1 Charisma
+
+def dwarf():
+	# Hill Dwarf: +2 constitution, +1 wisdom
+	# Mountain Dwarf: +2 Strength, +2 Constitution
+
+def elf():
+	# High elf: +2 Dex, +1 Int
+	# Wood elf: +2 Dex, +1 Wis
+	# Dark elf: +2 Dex, +1 Cha
+	# Eladrin: +2 Dex, +1 Int
+
+def gnome():
+	# forest gnome: +1 Dex, +2 Int
+	# rock gome: +1 Con, +2 Int
+
+def halfling():
+	# lightfoot: +2 Dex, +1 Cha
+	# stout: +1 Con, +2 Dex
+
+def half-elf():
+	# +2 cha, +1 to any 2 scores
+
+def half-orc():
+	# +2 Str, +1 Con
+
+def tiefling():
+	# +1 int, +2 cha
+'''
 
 start()
