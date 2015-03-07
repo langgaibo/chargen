@@ -1,10 +1,4 @@
 # coding: utf8
-'''
-I figured out my own ugly zip() function and learned a lot
-about passing args properly and converting between lists, 
-tuples, and strings.
-My goal was to get rid of the OrderedDict function and I did it!
-'''
 from random import randint
 from sys import exit
 
