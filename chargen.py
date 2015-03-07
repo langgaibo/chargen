@@ -7,8 +7,6 @@ print 'D&D simple character generator'
 print 'version 0.2 朗盖博 2015'
 
 statlist = None
-stype = type(statlist)
-print 'debug - statlist starts as %r and is %r' % (statlist, stype)
 prompt = '>: '
 
 def basestat():
@@ -18,8 +16,9 @@ def basestat():
 	basestat = sum(baseroll)
 	return basestat
 
-def statlist():
+def generate_stats():
 	global statlist
+	statlist = None
 	statlist = [basestat() for i in range(0,6)]
 
 def att_words():
@@ -84,12 +83,9 @@ def judgement():
 		print 'Great rolls!\n'
 	else:
 		print 'Shit rolls!\n'
-	print 'debug - clearing global variable statlist'
 	global statlist
-	statlist = None
-	fstype = type(statlist)
-	print 'debug - statlist is now %r and is %r' % (statlist, fstype)
-	print fstype
+	stype = type(statlist)
+	print 'debug - global statlist is %r and of %r' % (statlist, stype)
 	mainmenu()
 
 '''
@@ -137,7 +133,7 @@ def mainmenu():
 	print 'Input "r" to roll base stats, or "q" to quit.'
 	choice = raw_input(prompt)
 	if 'r' in choice:
-		statlist()
+		generate_stats()
 		judgement()
 	elif 'q' in choice:
 		exit(0)
