@@ -3,11 +3,14 @@
 from sys import exit
 from random import randint
 
+print '\nD&D simple dice roller'
+print 'version 1.0 朗盖博 2015\n'
+
 globrolled = 0
 globsum = 0
 globlist = []
 
-prompt = '>>> '
+prompt = '>: '
 
 def start():
 	if globrolled == 0:
@@ -33,10 +36,7 @@ def roll():
 	num_dice = int(input(prompt))
 	global globlist
 	globlist = []
-	#list comprehension version:
-	#globlist = [ randint(1,num_sides) for num_dice in range(0,num_dice)]
-	for num_dice in range(0,num_dice):
-		globlist.append(randint(1,num_sides))
+	globlist = [ randint(1,num_sides) for num_dice in range(0,num_dice)]
 	global globsum
 	globsum = sum(globlist)
 	print globlist
@@ -55,7 +55,7 @@ def rolledmenu():
 	else:
 		global globrolled
 		globrolled = 0
-	start()
+	roll()
 
 def modifier():
 	print 'Enter modifier (precede with "-" for negatives):'
@@ -64,7 +64,7 @@ def modifier():
 	print 'Total: %i' % modsum
 	global globrolled
 	globrolled = 0
-	start()
+	roll()
 
 def dmod():
 	print 'Enter modifier ("-" for negative):'
@@ -74,7 +74,7 @@ def dmod():
 	print 'Modified rolls: %r' % dmlist
 	global globrolled
 	globrolled = 0
-	start()
+	roll()
 
 print "D&D dice roller\n朗盖博 2015"
 start()

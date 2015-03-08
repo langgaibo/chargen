@@ -3,7 +3,10 @@
 from sys import exit
 from random import randint
 
-prompt = ('>>> ')
+print '\nShadowrun simple dice roller'
+print 'version 1.0 朗盖博 2015\n'
+
+prompt = ('>: ')
 
 
 def start():
