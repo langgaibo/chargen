@@ -1,5 +1,15 @@
 # coding: utf8
-
+'''
+To Do:
+Condense the ugly hard-coded choice functions into something that elegantly
+selects from within a dictionary or something.
+select_race():
+	map choices to a dict, maybe in separate module to import?
+plus_stat():
+	there's GOT to be an easy way to just link the attribute strings to
+	the proper list index, then iterate and add the appropriate value
+	to that index...
+'''
 from random import randint
 from sys import exit
 import racestats
@@ -336,9 +346,9 @@ def judgement():
 	display_block()
 	print '\nTotal mods = %i' % modtotal
 	
-	if modtotal >=3 and modtotal <= 6:
+	if modtotal >=3 and modtotal <= 8:
 		print 'Decent stats.\n'
-	elif modtotal > 6:
+	elif modtotal > 8:
 		print 'Great stats!\n'
 	else:
 		print 'Shit stats!\n'
