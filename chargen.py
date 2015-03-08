@@ -1,18 +1,11 @@
 # coding: utf8
-<<<<<<< HEAD
-'''
-New branch for working out racial modifiers.
-I'll try to commit at every stage.
-'''
-=======
 
->>>>>>> race_modifiers
 from random import randint
 from sys import exit
 import racestats
 
 print '\nD&D simple character generator'
-print 'version 0.3 朗盖博 2015\n'
+print 'version 1.0 朗盖博 2015\n'
 
 statlist = None
 modtotal = 0
