@@ -4,6 +4,7 @@ from sys import exit
 from random import randint
 
 print '\nShadowrun simple dice roller'
+print "Glitches detected automatically. Enjoy!"
 print 'version 1.0 朗盖博 2015\n'
 
 prompt = ('>: ')
@@ -48,6 +49,4 @@ def roll():
 		start()
 	start()
 
-print "Shadowrun dice roller\n朗盖博 2015"
-print "Glitches detected automatically. Enjoy!"
 start()
