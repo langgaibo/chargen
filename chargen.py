@@ -90,20 +90,20 @@ def plus_stat(stat1, stat2, race):
 
 	if stat1 == 'str':
 		statlist[0] = (statlist[0] + 1)
-	elif stat1 == 'con':
-		statlist[1] = (statlist[1] + 1)
 	elif stat1 == 'dex':
+		statlist[1] = (statlist[1] + 1)
+	elif stat1 == 'con':
 		statlist[2] = (statlist[2] + 1)
-	elif stat1 == 'wis':
-		statlist[3] = (statlist[3] + 1)
 	elif stat1 == 'int':
+		statlist[3] = (statlist[3] + 1)
+	elif stat1 == 'wis':
 		statlist[4] = (statlist[4] + 1)
 	elif stat1 == 'cha':
 		statlist[5] = (statlist[5] + 1)
 	else:
 		print "What? error typing stat1. Going back.\n"
 		if race == 'Human':
-			statlist = [i - 1 for i in statlist]
+			statlist = humanlist
 			human()
 		elif race == 'Half-elf':
 			statlist[5] = statlist[5] - 2
@@ -114,20 +114,20 @@ def plus_stat(stat1, stat2, race):
 
 	if stat2 == 'str':
 		statlist[0] = (statlist[0] + 1)
-	elif stat2 == 'con':
-		statlist[1] = (statlist[1] + 1)
 	elif stat2 == 'dex':
+		statlist[1] = (statlist[1] + 1)
+	elif stat2 == 'con':
 		statlist[2] = (statlist[2] + 1)
-	elif stat2 == 'wis':
-		statlist[3] = (statlist[3] + 1)
 	elif stat2 == 'int':
+		statlist[3] = (statlist[3] + 1)
+	elif stat2 == 'wis':
 		statlist[4] = (statlist[4] + 1)
 	elif stat2 == 'cha':
 		statlist[5] = (statlist[5] + 1)
 	else:
 		print "What? error typing stat2. Going back.\n"
 		if race == 'Human':
-			statlist = [i - 1 for i in statlist]
+			statlist = humanlist
 			human()
 		elif race == 'Half-elf':
 			statlist[5] = statlist[5] - 2
@@ -141,8 +141,10 @@ def plus_stat(stat1, stat2, race):
 
 def human():
 	global statlist
+	global humanlist
 	print '\nFirst: humans get +1 across the board! Patriarchs!\n'
 	statlist = [i + 1 for i in statlist]
+	humanlist = statlist
 	stats_review()
 	print '\nNow, type the abbrev. name of the first stat to +1 (i.e. "str"):'
 	stat1 = raw_input(prompt)
@@ -169,12 +171,12 @@ def dragonborn():
 def dwarfs():
 	global statlist
 	print '\nFirst: +2 Constitution, beardo!\n'
-	statlist[1] = statlist[1] + 2
+	statlist[2] = statlist[2] + 2
 	print 'Select a subrace!' 
 	print '"h" for Hill Dwarf, "m" for Mountain Dwarf, or "q" to quit.'
 	subrace = raw_input(prompt)
 	if subrace == 'h':
-		statlist[3] = statlist[3] + 1
+		statlist[4] = statlist[4] + 1
 		race = 'Hill Dwarf'
 	elif subrace == 'm':
 		statlist[0] = statlist[0] + 2
@@ -183,7 +185,7 @@ def dwarfs():
 		exit(0)
 	else:
 		print '\nWhat? Try again, dickhead.'
-		statlist[1] = statlist[1] - 2
+		statlist[2] = statlist[2] - 2
 		dwarfs()
 
 	print '\nFINAL STATS for your %r:' % race
@@ -192,28 +194,28 @@ def dwarfs():
 def elfs():
 	global statlist
 	print '\nFirst: +2 Dex, pointy!\n'
-	statlist[2] = statlist[2] + 2
+	statlist[1] = statlist[1] + 2
 	print 'Select a subrace!'
 	print '"h" for High Elf, "w" for Wood Elf,'
 	print '"d" for Drow, "e" for Eladrin, or "q" to quit.'
 	subrace = raw_input(prompt)
 	if subrace == 'h':
-		statlist[4] = statlist[4] + 1
+		statlist[3] = statlist[3] + 1
 		race = 'High Elf'
 	elif subrace == 'w':
-		statlist[3] = statlist[3] + 1
+		statlist[4] = statlist[4] + 1
 		race = 'Wood Elf'
 	elif subrace == 'd':
 		statlist[5] = statlist[5] + 1
 		race = 'Drow'
 	elif subrace == 'e':
-		statlist[4] = statlist[4] + 1
+		statlist[3] = statlist[3] + 1
 		race = 'Eladrin'
 	elif subrace == 'q':
 		exit(0)
 	else:
 		print '\nWhat? Try again, dickhead.'
-		statlist[2] = statlist[2] - 2
+		statlist[1] = statlist[1] - 2
 		elfs()
 
 	print '\nFINAL STATS for your %r:' % race
@@ -222,21 +224,21 @@ def elfs():
 def gnomes():
 	global statlist
 	print '\nFirst: +2 Int, Gizmo!\n'
-	statlist[4] = statlist[4] + 2
+	statlist[3] = statlist[3] + 2
 	print 'Select a subrace!'
 	print '"f" for Forest Gnome, "r" for Rock Gnome, or "q" to quit.'
 	subrace = raw_input(prompt)
 	if subrace == 'f':
-		statlist[2] = statlist[2] + 1
+		statlist[1] = statlist[1] + 1
 		race = 'Forest Gnome'
 	elif subrace == 'r':
-		statlist[1] = statlist[1] + 1
+		statlist[2] = statlist[2] + 1
 		race = 'Rock Gnome'
 	elif subrace == 'q':
 		exit(0)
 	else:
 		print '\nWhat? Try again, dickhead.'
-		statlist[4] = statlist[4] - 2
+		statlist[3] = statlist[3] - 2
 		gnomes()
 
 	print '\nFINAL STATS for your %r:' % race
@@ -245,7 +247,7 @@ def gnomes():
 def halflings():
 	global statlist
 	print '\nFirst: +2 Dex, Samwise!\n'
-	statlist[2] = statlist[2] + 2
+	statlist[1] = statlist[1] + 2
 	print 'Select a subrace!'
 	print '"l" for Lightfoot, "s" for Stout, or "q" to quit.'
 	subrace = raw_input(prompt)
@@ -253,13 +255,13 @@ def halflings():
 		statlist[5] = statlist[5] + 1
 		race = 'Lightfoot clan Halfling'
 	elif subrace == 's':
-		statlist[1] = statlist[1] + 1
+		statlist[2] = statlist[2] + 1
 		race = 'Stout clan Halfling'
 	elif subrace == 'q':
 		exit(0)
 	else:
 		print '\nWhat? Try again, dickhead.'
-		statlist[2] = statlist[2] - 2
+		statlist[1] = statlist[1] - 2
 		halflings()
 
 	print '\nFINAL STATS for your %r:' % race
@@ -281,14 +283,14 @@ def	half_orc():
 	global statlist
 	print '+2 Str, +1 Con, you ugly motherfucker!\n'
 	statlist[0] = statlist[0] + 2
-	statlist[1] = statlist[1] + 1
+	statlist[2] = statlist[2] + 1
 	print '\nFINAL STATS for your Half-orc:'
 	judgement()
 
 def tiefling():
 	global statlist
 	print '+1 Int, +2 Cha, Tinkerbell!\n'
-	statlist[4] = statlist[4] + 1
+	statlist[3] = statlist[3] + 1
 	statlist[5] = statlist[5] + 2
 	print '\nFINAL STATS for your Tiefling:'
 	judgement()	
@@ -310,10 +312,10 @@ def modlist():
 def att_words():
 	a_w = [
 		'Strength    ',
-		'Constitution',
 		'Dexterity   ',
-		'Wisdom      ',
+		'Constitution',
 		'Intelligence',
+		'Wisdom      ',
 		'Charisma    ']
 	return a_w
 
