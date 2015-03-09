@@ -87,7 +87,7 @@ def stats_review():
 			temp.append(str(val))
 		print ' '.join(temp)
 
-def plus_stat(stat1, stat2, race):
+def plus_stat(stat1, stat2):
 	global statlist
 
 	if stat1 == 'str':
@@ -104,15 +104,8 @@ def plus_stat(stat1, stat2, race):
 		statlist[5] = (statlist[5] + 1)
 	else:
 		print "What? error typing stat1. Going back.\n"
-		'''if race == 'Human':
-			statlist = humanlist
-			human()'''
-		if race == 'Half-elf':
-			statlist[5] = statlist[5] - 2
-			half_elf()
-		else:
-			print 'An error occured.'
-			exit(0)
+		statlist[5] = statlist[5] - 2
+		half_elf()
 
 	if stat2 == 'str':
 		statlist[0] = (statlist[0] + 1)
@@ -128,17 +121,10 @@ def plus_stat(stat1, stat2, race):
 		statlist[5] = (statlist[5] + 1)
 	else:
 		print "What? error typing stat2. Going back.\n"
-		'''if race == 'Human':
-			statlist = humanlist
-			human()'''
-		if race == 'Half-elf':
-			statlist[5] = statlist[5] - 2
-			half_elf()
-		else:
-			print 'An error occured.'
-			exit(0)
+		statlist[5] = statlist[5] - 2
+		half_elf()
 
-	print '\nFINAL STATS for your %s:' % race
+	print '\nFINAL STATS for your Half-elf:'
 	judgement()
 
 def human():
@@ -147,14 +133,6 @@ def human():
 	statlist = [i + 1 for i in statlist]
 	print '\nFINAL STATS for your Human:'
 	judgement()
-	'''	humanlist = statlist
-	stats_review()
-	print '\nNow, type the abbrev. name of the first stat to +1 (i.e. "str"):'
-	stat1 = raw_input(prompt)
-	print 'and the second stat to +1:'
-	stat2 = raw_input(prompt)
-	race = 'Human'
-	plus_stat(stat1, stat2, race)'''
 
 def aasimar():
 	global statlist
@@ -279,8 +257,7 @@ def half_elf():
 	stat1 = raw_input(prompt)
 	print 'and the second stat to +1:'
 	stat2 = raw_input(prompt)
-	race = 'Half-elf'
-	plus_stat(stat1, stat2, race)
+	plus_stat(stat1, stat2)
 
 def	half_orc():
 	global statlist
