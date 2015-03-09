@@ -1,21 +1,23 @@
 # coding: utf8
 '''
 To Do:
-Condense the ugly hard-coded choice functions into something that elegantly
+-Clean out all traces of Human Variant (not part of core),
+	remove race value from plus_stat since it only applies to one race now.
+-Condense the ugly hard-coded choice functions into something that elegantly
 selects from within a dictionary or something.
-select_race():
-	map choices to a dict, maybe in separate module to import?
-plus_stat():
-	there's GOT to be an easy way to just link the attribute strings to
-	the proper list index, then iterate and add the appropriate value
-	to that index...
+	select_race():
+		map choices to a dict, maybe in separate module to import?
+	plus_stat():
+		there's GOT to be an easy way to just link the attribute strings to
+		the proper list index, then iterate and add the appropriate value
+		to that index...
 '''
 from random import randint
 from sys import exit
 import racestats
 
 print '\nD&D simple character generator'
-print 'version 1.0 朗盖博 2015\n'
+print 'version 1.1 朗盖博 2015\n'
 
 statlist = None
 modtotal = 0
@@ -102,10 +104,10 @@ def plus_stat(stat1, stat2, race):
 		statlist[5] = (statlist[5] + 1)
 	else:
 		print "What? error typing stat1. Going back.\n"
-		if race == 'Human':
+		'''if race == 'Human':
 			statlist = humanlist
-			human()
-		elif race == 'Half-elf':
+			human()'''
+		if race == 'Half-elf':
 			statlist[5] = statlist[5] - 2
 			half_elf()
 		else:
@@ -126,10 +128,10 @@ def plus_stat(stat1, stat2, race):
 		statlist[5] = (statlist[5] + 1)
 	else:
 		print "What? error typing stat2. Going back.\n"
-		if race == 'Human':
+		'''if race == 'Human':
 			statlist = humanlist
-			human()
-		elif race == 'Half-elf':
+			human()'''
+		if race == 'Half-elf':
 			statlist[5] = statlist[5] - 2
 			half_elf()
 		else:
@@ -141,17 +143,18 @@ def plus_stat(stat1, stat2, race):
 
 def human():
 	global statlist
-	global humanlist
-	print '\nFirst: humans get +1 across the board! Patriarchs!\n'
+	print '\nHumans get +1 across the board! Patriarchs!'
 	statlist = [i + 1 for i in statlist]
-	humanlist = statlist
+	print '\nFINAL STATS for your Human:'
+	judgement()
+	'''	humanlist = statlist
 	stats_review()
 	print '\nNow, type the abbrev. name of the first stat to +1 (i.e. "str"):'
 	stat1 = raw_input(prompt)
 	print 'and the second stat to +1:'
 	stat2 = raw_input(prompt)
 	race = 'Human'
-	plus_stat(stat1, stat2, race)
+	plus_stat(stat1, stat2, race)'''
 
 def aasimar():
 	global statlist
@@ -170,7 +173,7 @@ def dragonborn():
 
 def dwarfs():
 	global statlist
-	print '\nFirst: +2 Constitution, beardo!\n'
+	print '\nFirst: +2 Constitution, beardo!'
 	statlist[2] = statlist[2] + 2
 	print 'Select a subrace!' 
 	print '"h" for Hill Dwarf, "m" for Mountain Dwarf, or "q" to quit.'
@@ -193,7 +196,7 @@ def dwarfs():
 
 def elfs():
 	global statlist
-	print '\nFirst: +2 Dex, pointy!\n'
+	print '\nFirst: +2 Dex, pointy!'
 	statlist[1] = statlist[1] + 2
 	print 'Select a subrace!'
 	print '"h" for High Elf, "w" for Wood Elf,'
@@ -223,7 +226,7 @@ def elfs():
 
 def gnomes():
 	global statlist
-	print '\nFirst: +2 Int, Gizmo!\n'
+	print '\nFirst: +2 Int, Gizmo!'
 	statlist[3] = statlist[3] + 2
 	print 'Select a subrace!'
 	print '"f" for Forest Gnome, "r" for Rock Gnome, or "q" to quit.'
@@ -246,7 +249,7 @@ def gnomes():
 
 def halflings():
 	global statlist
-	print '\nFirst: +2 Dex, Samwise!\n'
+	print '\nFirst: +2 Dex, Samwise!'
 	statlist[1] = statlist[1] + 2
 	print 'Select a subrace!'
 	print '"l" for Lightfoot, "s" for Stout, or "q" to quit.'
@@ -269,7 +272,7 @@ def halflings():
 
 def half_elf():
 	global statlist
-	print '\nFirst: +2 Cha, you sexy beast!\n'
+	print '\nFirst: +2 Cha, you sexy beast!'
 	statlist[5] = statlist[5] + 2
 	stats_review()
 	print '\nNow, type the abbrev. name of the first stat to +1 (i.e. "str"):'
@@ -281,7 +284,7 @@ def half_elf():
 
 def	half_orc():
 	global statlist
-	print '+2 Str, +1 Con, you ugly motherfucker!\n'
+	print '+2 Str, +1 Con, you ugly motherfucker!'
 	statlist[0] = statlist[0] + 2
 	statlist[2] = statlist[2] + 1
 	print '\nFINAL STATS for your Half-orc:'
@@ -289,7 +292,7 @@ def	half_orc():
 
 def tiefling():
 	global statlist
-	print '+1 Int, +2 Cha, Tinkerbell!\n'
+	print '+1 Int, +2 Cha, Tinkerbell!'
 	statlist[3] = statlist[3] + 1
 	statlist[5] = statlist[5] + 2
 	print '\nFINAL STATS for your Tiefling:'
@@ -360,7 +363,7 @@ def judgement():
 		select_race()
 	else:
 		race_selected = 0
-		print '\nStarting over!\n\n\n\n\n\n\n'
+		print 'Starting over!\n\n'
 		mainmenu()
 
 def mainmenu():

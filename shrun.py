@@ -5,7 +5,7 @@ from random import randint
 
 print '\nShadowrun simple dice roller'
 print "Glitches detected automatically. Enjoy!"
-print 'version 1.0 朗盖博 2015\n'
+print 'version 1.1 朗盖博 2015\n'
 
 prompt = ('>: ')
 

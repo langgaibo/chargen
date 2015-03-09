@@ -5,7 +5,7 @@ from random import randint
 
 print '\nD&D simple dice roller'
 print 'Type "666" to exit at any midpoint.'
-print 'version 1.0 朗盖博 2015'
+print 'version 1.1 朗盖博 2015'
 
 globsum = 0
 globlist = []
