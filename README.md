@@ -11,12 +11,12 @@ I don't even play these games!
 
 ### How do I get set up? ###
 
-* There is no setup.
-* There is no configuration.
+* Just run any of the modules via python from within the directory.
+* There is no configuration, but the chargen.py module needs the racestats.py module in the same directory, because I pushed a bunch of grunt functions to that supplementary module.
 
 ### Contribution guidelines ###
 
-* This is my thing
+* This is my thing, fork if you want but don't tell me what to do. I'm learning it on my own.
 
 ### Who do I talk to? ###
 
