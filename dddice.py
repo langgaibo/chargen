@@ -73,6 +73,8 @@ def dmod():
 	mod = int(raw_input(prompt))
 	globlist = [i+mod for i in globlist]
 	print 'Modified rolls: %r' % globlist
+	modsum = sum(globlist)
+	print 'Total: %i' % modsum
 	roll()
 
 def dmod_stats():
