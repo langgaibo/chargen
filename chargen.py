@@ -40,34 +40,34 @@ def show_stats():
 	judgement()
 	select_race()
 
+#todo - push this into a config module, return something easier
 def select_race():
 	global race_selected
 	race_selected = 1
-	print 'Enter a number to select race and apply modifiers:'
+	print 'Scroll up to see core stats, then'
+	print 'enter a number to select race and apply modifiers:'
 	choice = int(raw_input(prompt))
 	if choice == 1:
-		human()	
+		human()
 	elif choice == 2:
-		aasimar()
-	elif choice == 3:
 		dragonborn()
-	elif choice == 4:
+	elif choice == 3:
 		dwarfs()
-	elif choice == 5:
+	elif choice == 4:
 		elfs()
-	elif choice == 6:
+	elif choice == 5:
 		gnomes()
-	elif choice == 7:
+	elif choice == 6:
 		halflings()
-	elif choice == 8:
+	elif choice == 7:
 		half_elf()
-	elif choice == 9:
+	elif choice == 8:
 		half_orc()
-	elif choice == 10:
+	elif choice == 9:
 		tiefling()
-	elif choice == 11:
+	elif choice == 10:
 		race_selected = 0
-		print '\n\n\n Rerolling!\n\n\n'
+		print ' Rerolling!'
 		generate_stats()
 		show_stats()
 	elif choice == 99:
@@ -89,41 +89,9 @@ def stats_review():
 
 def plus_stat(stat1, stat2):
 	global statlist
-
-	if stat1 == 'str':
-		statlist[0] = (statlist[0] + 1)
-	elif stat1 == 'dex':
-		statlist[1] = (statlist[1] + 1)
-	elif stat1 == 'con':
-		statlist[2] = (statlist[2] + 1)
-	elif stat1 == 'int':
-		statlist[3] = (statlist[3] + 1)
-	elif stat1 == 'wis':
-		statlist[4] = (statlist[4] + 1)
-	elif stat1 == 'cha':
-		statlist[5] = (statlist[5] + 1)
-	else:
-		print "What? error typing stat1. Going back.\n"
-		statlist[5] = statlist[5] - 2
-		half_elf()
-
-	if stat2 == 'str':
-		statlist[0] = (statlist[0] + 1)
-	elif stat2 == 'dex':
-		statlist[1] = (statlist[1] + 1)
-	elif stat2 == 'con':
-		statlist[2] = (statlist[2] + 1)
-	elif stat2 == 'int':
-		statlist[3] = (statlist[3] + 1)
-	elif stat2 == 'wis':
-		statlist[4] = (statlist[4] + 1)
-	elif stat2 == 'cha':
-		statlist[5] = (statlist[5] + 1)
-	else:
-		print "What? error typing stat2. Going back.\n"
-		statlist[5] = statlist[5] - 2
-		half_elf()
-
+	addlist = racestats.upgraydd(stat1, stat2)
+	for i in range(len(statlist)):
+		statlist[i] = statlist[i] + addlist[i]
 	print '\nFINAL STATS for your Half-elf:'
 	judgement()
 
@@ -132,13 +100,6 @@ def human():
 	print '\nHumans get +1 across the board! Patriarchs!'
 	statlist = [i + 1 for i in statlist]
 	print '\nFINAL STATS for your Human:'
-	judgement()
-
-def aasimar():
-	global statlist
-	print '\n+2 Cha, Aashole!'
-	statlist[5] = statlist[5] + 2
-	print '\nFINAL STATS for your Aasimar:'
 	judgement()
 
 def dragonborn():
@@ -255,7 +216,8 @@ def half_elf():
 	stats_review()
 	print '\nNow, type the abbrev. name of the first stat to +1 (i.e. "str"):'
 	stat1 = raw_input(prompt)
-	print 'and the second stat to +1:'
+	print "and the second stat to +1."
+	print "YOU CAN'T DOUBLE DOWN or you'll just lose the point!"
 	stat2 = raw_input(prompt)
 	plus_stat(stat1, stat2)
 
