@@ -1,5 +1,7 @@
 # coding: utf8
-# 朗盖博 2015 v1.2
+# 朗盖博 2015 v1.3
+from sys import exit
+
 prompt = '>: '
 
 def novel():
@@ -15,7 +17,6 @@ def novel():
 	High elf: +2 Dex, +1 Int
 	Wood elf: +2 Dex, +1 Wis
 	Drow: +2 Dex, +1 Cha
-	Eladrin: +2 Dex, +1 Int
 5. Gnome:
 	forest gnome: +1 Dex, +2 Int
 	rock gome: +1 Con, +2 Int
@@ -38,13 +39,26 @@ def error_msg():
 	print 'It looks like you entered some dumb shit, and I gave up.'
 	print "Let's try that again.\n"
 
+def not_a_choice():
+	to_add = [0, 0, 0, 0, 0, 0]
+	return to_add
+
+def quit():
+	print 'Don\'t let the door hit you in the ass!'
+	exit(0)
+
+def do_over():
+	to_add = 'panda'
+	race = 'alot'
+	return to_add, race
+
 def dragonborn():
 	to_add = [2, 0, 0, 0, 0, 1]
 	race = 'Dragonborn'
 	print '\n+2 Str, +1 Cha! Put on some lotion, scales!'
 	return to_add, race
 
-def dwarfs():
+def dwarf():
 	race = 'Dwarf'
 	print '\nFirst: +2 Constitution, beardo!\n'
 	print 'Select a subrace!' 
@@ -58,21 +72,19 @@ def dwarfs():
 		to_add = [2, 0, 2, 0, 0, 0]
 		race = 'Mountain Dwarf'
 	elif subrace == 'q':
-		exit(0)
+		quit()
 	else:
-		print '\nWhat? Try again, dickhead.'
-		to_add = [0, 0, 0, 0, 0, 0]
+		to_add = not_a_choice()
 	
 	return to_add, race
 
-def elfs():
+def elf():
 	race = 'Elf'
 	print '\n+2 Dex, pointy!\n'
 	print 'Select a subrace!'
 	print '"h" for High Elf (+1 Int),'
 	print '"w" for Wood Elf (+1 Wis),'
-	print '"d" for Drow (+1 Cha),'
-	print '"e" for Eladrin (+1 Int), or "q" to quit.'
+	print '"d" for Drow (+1 Cha), or "q" to quit.'
 	subrace = raw_input(prompt)
 	if subrace == 'h':
 		to_add = [0, 2, 0, 1, 0, 0]
@@ -83,18 +95,14 @@ def elfs():
 	elif subrace == 'd':
 		to_add = [0, 2, 0, 0, 0, 1]
 		race = 'Drow'
-	elif subrace == 'e':
-		to_add = [0, 2, 0, 1, 0, 0]
-		race = 'Eladrin'
 	elif subrace == 'q':
-		exit(0)
+		quit()
 	else:
-		print '\nWhat? Try again, dickhead.'
-		to_add = [0, 0, 0, 0, 0, 0]
+		to_add = not_a_choice()
 
 	return to_add, race
 
-def gnomes():
+def gnome():
 	race = 'Gnome'
 	print '\n+2 Int, Gizmo!\n'
 	print 'Select a subrace!'
@@ -108,14 +116,13 @@ def gnomes():
 		to_add = [0, 0, 1, 2, 0, 0]
 		race = 'Rock Gnome'
 	elif subrace == 'q':
-		exit(0)
+		quit()
 	else:
-		print '\nWhat? Try again, dickhead.'
-		to_add = [0, 0, 0, 0, 0, 0]
+		to_add = not_a_choice()
 
 	return to_add, race
 
-def halflings():
+def halfling():
 	race = 'Halfling'
 	print '\n+2 Dex, Samwise!\n'
 	print 'Select a subrace!'
@@ -129,56 +136,44 @@ def halflings():
 		to_add = [0, 2, 1, 0, 0, 0]
 		race = 'Stout clan Halfling'
 	elif subrace == 'q':
-		exit(0)
+		quit()
 	else:
-		print '\nWhat? Try again, dickhead.'
-		to_add = [0, 0, 0, 0, 0, 0]
+		to_add = not_a_choice()
 
 	return to_add, race
 
 def half_elf():
+	race = 'Half-elf'
+	statdict = {'str':0, 'dex':1, 'con':2, 'int':3, 'wis':4, 'cha':5}
+	stat1 = 0
+	stat2 = 0
 	print '\n+2 Cha, you sexy beast!'
-	print '\nNow, type the abbrev. name of the first stat to +1 (i.e. "str"):'
-	stat1 = raw_input(prompt)
-	print "...and the second stat to +1."
-	print "YOU CAN'T DOUBLE DOWN or you'll just lose the point!"
-	stat2 = raw_input(prompt)
-	return stat1, stat2
-
-#todo - find a more elegant way to do this
-def upgraydd(stat1, stat2):
-	to_add = [0, 0, 0, 0, 0, 0]
-	if stat1 == 'str':
-		to_add[0] = 1
-	elif stat1 == 'dex':
-		to_add[1] = 1
-	elif stat1 == 'con':
-		to_add[2] = 1
-	elif stat1 == 'int':
-		to_add[3] = 1
-	elif stat1 == 'wis':
-		to_add[4] = 1
-	elif stat1 == 'cha':
-		to_add[5] = 1
+	print '\nNow, type the abbrev. name of the first stat to +1 (i.e. "str").'
+	print 'Get it right or you won\'t get the bonus!'
+	first = raw_input(prompt)
+	check1 = first in statdict
+	
+	if check1 == True:
+		stat1 = statdict[first]
 	else:
 		print "What? error typing stat1.\n"
+		half_elf()
 
-	if stat2 == 'str':
-		to_add[0] = 1
-	elif stat2 == 'dex':
-		to_add[1] = 1
-	elif stat2 == 'con':
-		to_add[2] = 1
-	elif stat2 == 'int':
-		to_add[3] = 1
-	elif stat2 == 'wis':
-		to_add[4] = 1
-	elif stat2 == 'cha':
-		to_add[5] = 1
+	print '...and the second stat to +1.'
+	print 'YOU CAN\'T DOUBLE DOWN or you\'ll just lose the point!'
+	second = raw_input(prompt)
+	check2 = second in statdict
+	
+	if check2 == True:
+		stat2 = statdict[second]
 	else:
 		print "What? error typing stat2.\n"
-
-	return to_add
+		half_elf()
+	to_add = [0, 0, 0, 0, 0, 2]
+	to_add[stat1] = to_add[stat1] + 1
+	to_add[stat2] = to_add[stat2] + 1
+	print 'debug - to_add = %r' % to_add
+	return to_add, race
 
 def	half_orc():
 	to_add = [2, 0, 1, 0, 0, 0]

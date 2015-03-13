@@ -1,22 +1,21 @@
 # coding: utf8
-'''To Do:
-select_race():
-	map choices to a dict, maybe in separate module to import?'''
-
 from random import randint
-from sys import exit
 import racestats
 
 print '\nD&D simple character generator'
-print 'version 1.2 朗盖博 2015\n'
+print 'version 1.3 朗盖博 2015\n'
 
-statlist = None
+statlist = []
 modtotal = 0
 race_selected = 0
+racedict = {1:'human', 2:'dragonborn', 3:'dwarf', 4:'elf', 5:'gnome',
+6:'halfling', 7:'half_elf', 8:'half_orc', 9:'tiefling', 10:'do_over',
+99:'quit'}
+
 prompt = '>: '
 
 def basestat():
-	baseroll = [randint(1,6) for i in range(0,4)]
+	baseroll = [randint(1,6) for i in range(4)]
 	delroll = min(baseroll)
 	baseroll.remove(delroll)
 	basestat = sum(baseroll)
@@ -24,55 +23,39 @@ def basestat():
 
 def generate_stats():
 	global statlist
-	statlist = None
-	statlist = [basestat() for i in range(0,6)]
+	#statlist = None
+	statlist = [basestat() for i in range(6)]
 
-def select_race():
+def selected_check():
 	global race_selected
-	
 	if race_selected == 2:
 		racestats.error_msg()
 		race_selected = 1
 	else:
 		race_selected = 1
 
+def select_race():
+	selected_check()
 	print 'See the list above to review racial modifiers,'
-	print 'then enter a # to select race and apply modifiers:'
+	print 'then enter the # to select race and apply mods:'
 	choice = int(raw_input(prompt))
-
-# To Do: Find a way to make this elegant
-	if choice == 1:
-		to_add, race = racestats.human()
-	elif choice == 2:
-		to_add, race = racestats.dragonborn()
-	elif choice == 3:
-		to_add, race = racestats.dwarfs()
-	elif choice == 4:
-		to_add, race = racestats.elfs()
-	elif choice == 5:
-		to_add, race = racestats.gnomes()
-	elif choice == 6:
-		to_add, race = racestats.halflings()
-	elif choice == 7:
-		stat1, stat2 = racestats.half_elf()
-		helf_stats(stat1, stat2)
-	elif choice == 8:
-		to_add, race = racestats.half_orc()
-	elif choice == 9:
-		to_add, race = racestats.tiefling()
-	elif choice == 10:
-		race_selected = 0
-		print ' Rerolling!'
-		generate_stats()
-		judgement()
-	elif choice == 99:
-		exit(0)
+	check = choice in racedict
+	if check == True:
+		val = str(racedict[choice])
+		wrap = 'to_add, race = racestats.%s()' % val
+		exec wrap
+		add_stats(to_add, race)
+		mainmenu()
 	else:
 		print "\nWhat?\n"
 		select_race()
-	
-	add_stats(to_add, race)
-	mainmenu()
+
+def reroll():
+	global race_selected
+	race_selected = 0
+	print ' Rerolling!'
+	generate_stats()
+	judgement()
 
 def add_stats(to_add,race):
 	global statlist
@@ -82,23 +65,12 @@ def add_stats(to_add,race):
 	if addlist == [0, 0, 0, 0, 0, 0]:
 		race_selected = 2
 		judgement()
+	elif addlist == 'panda':
+		reroll()
 	else:
 		for i in range(len(statlist)):
 			statlist[i] = statlist[i] + addlist[i]
 		print '\nFINAL STATS for your %s:' % race
-		judgement()
-
-def helf_stats(stat1, stat2):
-	global statlist
-	global race_selected
-	addlist = racestats.upgraydd(stat1, stat2)
-	if addlist == [0, 0, 0, 0, 0, 0]:
-		race_selected = 2
-		judgement()
-	else:
-		for i in range(len(statlist)):
-			statlist[i] = statlist[i] + addlist[i]
-		print '\nFINAL STATS for your Half-elf:'
 		judgement()
 
 def modlist():
@@ -127,7 +99,7 @@ def att_words():
 
 def mod_words():
 	m_w = []
-	for i in range(0,6):
+	for i in range(6):
 		word = ' Mod:'
 		m_w.append(word.rjust(18, '-'))
 	return m_w
@@ -182,7 +154,7 @@ def mainmenu():
 		generate_stats()
 		judgement()
 	elif choice == 'q':
-		exit(0)
+		racestats.quit()
 	else:
 		print 'What the fuck are you talking about? Try again.'
 		mainmenu()
