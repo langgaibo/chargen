@@ -9,24 +9,8 @@ print 'version 1.1 朗盖博 2015\n'
 
 prompt = ('>: ')
 
-
-def start():
-	menu()
-
-def menu():
-	print '"r" to roll or "q" to quit:'
-	choice = raw_input(prompt)
-	
-	if choice == 'r':
-		roll()
-	elif choice == 'q':
-		exit(0)
-	else:
-		print "I don't understand. Try again."
-		start()
-
 def roll():
-	print 'How many dice to roll?'
+	print 'How many dice to roll? Or type CTRL-C to kill the program'
 	num_dice = int(input(prompt))
 	#list comprehension version:
 	#x = [ randint(1,6) for num_dice in range(1,num_dice+1)]
@@ -46,7 +30,7 @@ def roll():
 	elif gcount >= 0.5 and hits > 0:
 		print 'Glitch!'
 	else:
-		start()
-	start()
+		roll()
+	roll()
 
-start()
+roll()
