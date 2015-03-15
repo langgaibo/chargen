@@ -1,14 +1,16 @@
 #coding: utf8
 #D&D Dice roller
-from sys import exit
+
+import dice_lib
 from random import randint
 
 print '\nD&D simple dice roller'
 print 'Type "666" to exit at any midpoint.'
-print 'version 1.3 朗盖博 2015'
+print 'version %s 朗盖博 2015\n' % dice_lib.version
 
-globsum = 0
 globlist = []
+globsum = 0
+modtotal = 0
 
 prompt = '>: '
 
@@ -16,7 +18,7 @@ def roll():
 	print '\nHow many sides? Or enter 666 to quit, or 888 to quick-roll stats.'
 	num_sides = int(input(prompt))
 	if num_sides == 666:
-		exit(0)
+		dice_lib.quit()
 	elif num_sides == 888:
 		generate_stats()
 		quick_print()
@@ -27,7 +29,7 @@ def roll2(num_sides):
 	print 'How many dice to roll? Or enter 666 to quit.'
 	num_dice = int(input(prompt))
 	if num_dice == 666:
-		exit(0)
+		dice_lib.quit()
 	else:
 		global globlist
 		globlist = [ randint(1,num_sides) for num_dice in range(0,num_dice)]
@@ -54,7 +56,7 @@ def rolledmenu_stats():
 	if 'y' in choice:
 		dmod_stats()
 	elif '666' in choice:
-		exit(0)
+		dice_lib.quit()
 	else:
 		print 'Ok, starting over.\n\n'
 		roll()
@@ -111,28 +113,11 @@ def modlist():
 	modtotal = sum(modlist)
 	return modlist
 
-def att_words():
-	a_w = [
-		'Strength    ',
-		'Dexterity   ',
-		'Constitution',
-		'Intelligence',
-		'Wisdom      ',
-		'Charisma    ']
-	return a_w
-
-def mod_words():
-	m_w = []
-	for i in range(0,6):
-		word = ' Mod:'
-		m_w.append(word.rjust(18, '-'))
-	return m_w
-
 def zip_all():
 	s = globlist
 	m = modlist()
-	a = att_words()
-	w = mod_words()
+	a = dice_lib.att_words()
+	w = dice_lib.mod_words()
 	length = len(a)
 	block = zip(a,s,w,m)
 	return block
@@ -147,15 +132,7 @@ def display_block():
 
 def quick_print():
 	display_block()
-	print '\nTotal mods = %i' % modtotal
-	
-	if modtotal >=3 and modtotal <= 8:
-		print 'Decent stats.\n'
-	elif modtotal > 8:
-		print 'Great stats!\n'
-	else:
-		print 'Shit stats!\n'
-
+	dice_lib.display_MT(modtotal)
 	rolledmenu_stats()
 
 roll()

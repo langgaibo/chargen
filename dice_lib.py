@@ -1,8 +1,10 @@
 # coding: utf8
-# 朗盖博 2015 v1.3
+# 朗盖博 2015 v1.4
 from sys import exit
 
 prompt = '>: '
+
+version = '1.4'
 
 def novel():
 	print '''
@@ -34,6 +36,33 @@ def novel():
 99. Quit!
 '''
 
+def att_words():
+	a_w = [
+		'Strength    ',
+		'Dexterity   ',
+		'Constitution',
+		'Intelligence',
+		'Wisdom      ',
+		'Charisma    ']
+	return a_w
+
+def mod_words():
+	m_w = []
+	for i in range(6):
+		word = ' Mod:'
+		m_w.append(word.rjust(18, '-'))
+	return m_w
+
+def display_MT(modtotal):
+	print '\nTotal mods = %i' % modtotal
+	
+	if modtotal >=3 and modtotal <= 8:
+		print 'Decent stats.\n'
+	elif modtotal > 8:
+		print 'Great stats!\n'
+	else:
+		print 'Shit stats!\n'
+
 def error_msg():
 	print '!!! What the fuck? !!!'
 	print 'It looks like you entered some dumb shit, and I gave up.'
@@ -44,7 +73,7 @@ def not_a_choice():
 	return to_add
 
 def quit():
-	print 'Don\'t let the door hit you in the ass!'
+	print '\nDon\'t let the door hit you in the ass!\n'
 	exit(0)
 
 def do_over():
@@ -131,10 +160,10 @@ def halfling():
 	subrace = raw_input(prompt)
 	if subrace == 'l':
 		to_add = [0, 2, 0, 0, 0, 1]
-		race = 'Lightfoot clan Halfling'
+		race = 'Lightfoot Halfling'
 	elif subrace == 's':
 		to_add = [0, 2, 1, 0, 0, 0]
-		race = 'Stout clan Halfling'
+		race = 'Stout Halfling'
 	elif subrace == 'q':
 		quit()
 	else:
@@ -153,18 +182,17 @@ def half_elf():
 	first = raw_input(prompt)
 	check1 = first in statdict
 	
-	if check1 == True:
+	if check1:
 		stat1 = statdict[first]
 	else:
 		print "What? error typing stat1.\n"
 		half_elf()
 
 	print '...and the second stat to +1.'
-	print 'YOU CAN\'T DOUBLE DOWN or you\'ll just lose the point!'
 	second = raw_input(prompt)
 	check2 = second in statdict
-	
-	if check2 == True:
+	#compare
+	if check2:
 		stat2 = statdict[second]
 	else:
 		print "What? error typing stat2.\n"
@@ -172,7 +200,6 @@ def half_elf():
 	to_add = [0, 0, 0, 0, 0, 2]
 	to_add[stat1] = to_add[stat1] + 1
 	to_add[stat2] = to_add[stat2] + 1
-	print 'debug - to_add = %r' % to_add
 	return to_add, race
 
 def	half_orc():

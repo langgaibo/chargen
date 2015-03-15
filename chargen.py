@@ -1,9 +1,9 @@
 # coding: utf8
 from random import randint
-import racestats
+import dice_lib
 
 print '\nD&D simple character generator'
-print 'version 1.3 朗盖博 2015\n'
+print 'version %s 朗盖博 2015\n' % dice_lib.version
 
 statlist = []
 modtotal = 0
@@ -23,13 +23,12 @@ def basestat():
 
 def generate_stats():
 	global statlist
-	#statlist = None
 	statlist = [basestat() for i in range(6)]
 
 def selected_check():
 	global race_selected
 	if race_selected == 2:
-		racestats.error_msg()
+		dice_lib.error_msg()
 		race_selected = 1
 	else:
 		race_selected = 1
@@ -40,9 +39,9 @@ def select_race():
 	print 'then enter the # to select race and apply mods:'
 	choice = int(raw_input(prompt))
 	check = choice in racedict
-	if check == True:
+	if check:
 		val = str(racedict[choice])
-		wrap = 'to_add, race = racestats.%s()' % val
+		wrap = 'to_add, race = dice_lib.%s()' % val
 		exec wrap
 		add_stats(to_add, race)
 		mainmenu()
@@ -87,29 +86,11 @@ def modlist():
 	modtotal = sum(modlist)
 	return modlist
 
-def att_words():
-	a_w = [
-		'Strength    ',
-		'Dexterity   ',
-		'Constitution',
-		'Intelligence',
-		'Wisdom      ',
-		'Charisma    ']
-	return a_w
-
-def mod_words():
-	m_w = []
-	for i in range(6):
-		word = ' Mod:'
-		m_w.append(word.rjust(18, '-'))
-	return m_w
-
 def zip_all():
 	s = statlist
 	m = modlist()
-	a = att_words()
-	w = mod_words()
-	length = len(a)
+	a = dice_lib.att_words()
+	w = dice_lib.mod_words()
 	block = zip(a,s,w,m)
 	return block
 
@@ -121,29 +102,19 @@ def display_block():
 			temp.append(str(chunk))
 		print ' '.join(temp)
 
-def display_MT():
-	print '\nTotal mods = %i' % modtotal
-	
-	if modtotal >=3 and modtotal <= 8:
-		print 'Decent stats.\n'
-	elif modtotal > 8:
-		print 'Great stats!\n'
-	else:
-		print 'Shit stats!\n'
-
 def judgement():
 	global race_selected
 	
 	if race_selected == 1:
 		race_selected = 0
 		display_block()
-		display_MT()
+		dice_lib.display_MT(modtotal)
 		print 'Starting over!\n'
 		mainmenu()
 	else:
-		racestats.novel()
+		dice_lib.novel()
 		display_block()
-		display_MT()
+		dice_lib.display_MT(modtotal)
 		select_race()
 
 def mainmenu():
@@ -154,7 +125,7 @@ def mainmenu():
 		generate_stats()
 		judgement()
 	elif choice == 'q':
-		racestats.quit()
+		dice_lib.quit()
 	else:
 		print 'What the fuck are you talking about? Try again.'
 		mainmenu()
