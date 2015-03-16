@@ -1,5 +1,21 @@
 # README #
 
+### Latest Release Notes ###
+Latest changes:
+cleanup
+used += and -= in loops
+added better error handling in all modules
+lots of experimentation with text display stuff (centering lines)
+
+Prior commit:
+-Renamed racestats.py library to dice_lib.py
+-moved "words" and modtotal functions to dice_lib from both chargen and dddice
+-added version # function to dice_lib and now pull it from there for all 3 rollers
+-routed all exit() functions from dddice to quit() in dice_lib
+-small cleanup of unnecessary if .. == True: conditions in chargen - apparently this is a common rookie mistake... also removed a list length variable that wasn't being used anymore
+-split do-it-all roll() function in shrun.py into 3 functions... it's actually more code this way, but it reads cleaner so fuck you
+
+### About this repository ###
 Just a small project to learn python via D&D / Shadowrun dice rollers and character stat generators.
 
 I don't even play these games!
