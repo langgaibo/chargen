@@ -22,6 +22,12 @@ def roll():
 	elif num_sides == 888:
 		generate_stats()
 		quick_print()
+	elif num_sides >= 1001:
+		dice_lib.error_msg()
+		roll()
+	elif num_sides <= 0:
+		dice_lib.error_msg()
+		roll()
 	else:
 		roll2(num_sides)
 
@@ -30,6 +36,12 @@ def roll2(num_sides):
 	num_dice = int(input(prompt))
 	if num_dice == 666:
 		dice_lib.quit()
+	elif num_dice >= 1001:
+		dice_lib.error_msg()
+		roll()
+	elif num_dice <= 0:
+		dice_lib.error_msg()
+		roll()
 	else:
 		global globlist
 		globlist = [ randint(1,num_sides) for num_dice in range(0,num_dice)]
@@ -65,27 +77,48 @@ def rolledmenu_stats():
 def modifier():
 	print 'Enter modifier (precede with "-" for negatives):'
 	mod = int(raw_input(prompt))
-	modsum = globsum + mod
-	print 'Total: %i' % modsum
-	roll()
+	if mod >= 101:
+		dice_lib.error_msg()
+		roll()
+	elif mod <= -101:
+		dice_lib.error_msg()
+		roll()
+	else:
+		modsum = globsum + mod
+		print 'Total: %i' % modsum
+		roll()
 
 def dmod():
 	global globlist
 	print 'Enter modifier ("-" for negative):'
 	mod = int(raw_input(prompt))
-	globlist = [i+mod for i in globlist]
-	print 'Modified rolls: %r' % globlist
-	modsum = sum(globlist)
-	print 'Total: %i' % modsum
-	roll()
+	if mod >= 101:
+		dice_lib.error_msg()
+		roll()
+	elif mod <= -101:
+		dice_lib.error_msg()
+		roll()
+	else:
+		globlist = [i+mod for i in globlist]
+		print 'Modified rolls: %r' % globlist
+		modsum = sum(globlist)
+		print 'Total: %i' % modsum
+		roll()
 
 def dmod_stats():
 	global globlist
 	print 'Enter modifier ("-" for negative):'
 	mod = int(raw_input(prompt))
-	globlist = [i+mod for i in globlist]
-	print '\n\nNew Stats:\n'
-	quick_print()
+	if mod >= 101:
+		dice_lib.error_msg()
+		roll()
+	elif mod <= -101:
+		dice_lib.error_msg()
+		roll()
+	else:
+		globlist = [i+mod for i in globlist]
+		print '\n\nNew Stats:\n'
+		quick_print()
 
 def basestat():
 	baseroll = [randint(1,6) for i in range(0,4)]

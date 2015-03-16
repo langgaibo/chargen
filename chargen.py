@@ -9,7 +9,7 @@ statlist = []
 modtotal = 0
 race_selected = 0
 racedict = {1:'human', 2:'dragonborn', 3:'dwarf', 4:'elf', 5:'gnome',
-6:'halfling', 7:'half_elf', 8:'half_orc', 9:'tiefling', 10:'do_over',
+6:'halfling', 7:'half_elf', 8:'half_orc', 9:'tiefling', 88:'do_over',
 99:'quit'}
 
 prompt = '>: '
@@ -68,7 +68,7 @@ def add_stats(to_add,race):
 		reroll()
 	else:
 		for i in range(len(statlist)):
-			statlist[i] = statlist[i] + addlist[i]
+			statlist[i] += addlist[i]
 		print '\nFINAL STATS for your %s:' % race
 		judgement()
 
@@ -100,7 +100,8 @@ def display_block():
 		temp = []
 		for chunk in line:
 			temp.append(str(chunk))
-		print ' '.join(temp)
+		attempt = ' '.join(temp)
+		print attempt.center(40)
 
 def judgement():
 	global race_selected
@@ -109,7 +110,8 @@ def judgement():
 		race_selected = 0
 		display_block()
 		dice_lib.display_MT(modtotal)
-		print 'Starting over!\n'
+		reset = 'Starting over!'
+		print reset.center(40, '-')
 		mainmenu()
 	else:
 		dice_lib.novel()

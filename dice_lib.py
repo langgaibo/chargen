@@ -4,7 +4,7 @@ from sys import exit
 
 prompt = '>: '
 
-version = '1.4'
+version = '1.5'
 
 def novel():
 	print '''
@@ -32,7 +32,8 @@ def novel():
 9. Tiefling:
 	+1 Int, +2 Cha
 
-10. Reroll base stats!
+88. Reroll base stats!
+
 99. Quit!
 '''
 
@@ -64,7 +65,9 @@ def display_MT(modtotal):
 		print 'Shit stats!\n'
 
 def error_msg():
-	print '!!! What the fuck? !!!'
+	print ' '
+	ding = '!!! What the fuck? !!!'
+	print ding.center(40)
 	print 'It looks like you entered some dumb shit, and I gave up.'
 	print "Let's try that again.\n"
 
@@ -76,6 +79,10 @@ def quit():
 	print '\nDon\'t let the door hit you in the ass!\n'
 	exit(0)
 
+def off_the_bat(bat):
+	print ' '
+	print bat.center(40, '.')
+
 def do_over():
 	to_add = 'panda'
 	race = 'alot'
@@ -84,13 +91,15 @@ def do_over():
 def dragonborn():
 	to_add = [2, 0, 0, 0, 0, 1]
 	race = 'Dragonborn'
-	print '\n+2 Str, +1 Cha! Put on some lotion, scales!'
+	bat = '+2 Str, +1 Cha! Put on some lotion, scales!'
+	off_the_bat(bat)
 	return to_add, race
 
 def dwarf():
 	race = 'Dwarf'
-	print '\nFirst: +2 Constitution, beardo!\n'
-	print 'Select a subrace!' 
+	bat = 'First: +2 Constitution, beardo!'
+	off_the_bat(bat)
+	print '\nSelect a subrace!' 
 	print '"h" for Hill Dwarf (+1 Wis),'
 	print '"m" for Mountain Dwarf (+2 Str), or "q" to quit.'
 	subrace = raw_input(prompt)
@@ -109,8 +118,9 @@ def dwarf():
 
 def elf():
 	race = 'Elf'
-	print '\n+2 Dex, pointy!\n'
-	print 'Select a subrace!'
+	bat = '+2 Dex, pointy!'
+	off_the_bat(bat)
+	print '\nSelect a subrace!'
 	print '"h" for High Elf (+1 Int),'
 	print '"w" for Wood Elf (+1 Wis),'
 	print '"d" for Drow (+1 Cha), or "q" to quit.'
@@ -133,8 +143,9 @@ def elf():
 
 def gnome():
 	race = 'Gnome'
-	print '\n+2 Int, Gizmo!\n'
-	print 'Select a subrace!'
+	bat = '+2 Int, Gizmo!'
+	off_the_bat(bat)
+	print '\nSelect a subrace!'
 	print '"f" for Forest Gnome (+1 Dex),'
 	print '"r" for Rock Gnome (+1 Con), or "q" to quit.'
 	subrace = raw_input(prompt)
@@ -153,8 +164,9 @@ def gnome():
 
 def halfling():
 	race = 'Halfling'
-	print '\n+2 Dex, Samwise!\n'
-	print 'Select a subrace!'
+	bat = '+2 Dex, Samwise!'
+	off_the_bat(bat)
+	print '\nSelect a subrace!'
 	print '"l" for Lightfoot (+1 Cha),'
 	print '"s" for Stout (+1 Con), or "q" to quit.'
 	subrace = raw_input(prompt)
@@ -176,9 +188,9 @@ def half_elf():
 	statdict = {'str':0, 'dex':1, 'con':2, 'int':3, 'wis':4, 'cha':5}
 	stat1 = 0
 	stat2 = 0
-	print '\n+2 Cha, you sexy beast!'
+	bat = '+2 Cha, you sexy beast!'
+	off_the_bat(bat)
 	print '\nNow, type the abbrev. name of the first stat to +1 (i.e. "str").'
-	print 'Get it right or you won\'t get the bonus!'
 	first = raw_input(prompt)
 	check1 = first in statdict
 	
@@ -186,36 +198,54 @@ def half_elf():
 		stat1 = statdict[first]
 	else:
 		print "What? error typing stat1.\n"
-		half_elf()
+		to_add = not_a_choice()
+		return to_add, race
 
-	print '...and the second stat to +1.'
+	print '\n...now type the second stat to +1. DON\'T DOUBLE DOWN!'
 	second = raw_input(prompt)
 	check2 = second in statdict
-	#compare
 	if check2:
 		stat2 = statdict[second]
 	else:
 		print "What? error typing stat2.\n"
-		half_elf()
+		to_add = not_a_choice()
+		return to_add, race
+
 	to_add = [0, 0, 0, 0, 0, 2]
-	to_add[stat1] = to_add[stat1] + 1
-	to_add[stat2] = to_add[stat2] + 1
-	return to_add, race
+	to_add[stat1] += 1
+	to_add[stat2] += 1
+	if stat1 == stat2:
+		taunt1 = 'I warned you, you cheating fuck!'
+		taunt2 = 'Original Charisma bonus gone, and...'
+		taunt3 = '-2 to %s!' % first
+		print ' '
+		print taunt1.center(40)
+		print taunt2.center(40)
+		print ' '
+		print taunt3.center(40, '.')
+		to_add[5] -= 2
+		to_add[stat1] -= 4
+		return to_add, race
+	else:
+		return to_add, race
 
 def	half_orc():
 	to_add = [2, 0, 1, 0, 0, 0]
 	race = 'Half-orc'
-	print '\n+2 Str, +1 Con, you ugly motherfucker!'
+	bat = '+2 Str, +1 Con, you ugly motherfucker!'
+	off_the_bat(bat)
 	return to_add, race
 
 def human():
 	to_add = [1, 1, 1, 1, 1, 1]
 	race = 'Human'
-	print '\nHumans get +1 across the board! Patriarchs!'
+	bat = 'Humans get +1 across the board! Patriarchs!'
+	off_the_bat(bat)
 	return to_add, race
 
 def tiefling():
 	to_add = [0, 0, 0, 1, 0, 2]
 	race = 'Tiefling'
-	print '\n+1 Int, +2 Cha, Tinkerbell!'
+	bat = '+1 Int, +2 Cha, Tinkerbell!'
+	off_the_bat(bat)
 	return to_add, race
