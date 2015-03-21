@@ -40,6 +40,7 @@ def select_race():
 	choice = int(raw_input(prompt))
 	check = choice in racedict
 	if check:
+		# TODO(colin): see if str() is necessary here
 		val = str(racedict[choice])
 		wrap = 'to_add, race = dice_lib.%s()' % val
 		exec wrap
