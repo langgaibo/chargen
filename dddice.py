@@ -11,7 +11,7 @@ print 'version %s 朗盖博 2015\n' % dice_lib.version
 globlist = []
 globsum = 0
 modtotal = 0
-
+block = []
 prompt = '>: '
 
 def roll():
@@ -147,25 +147,39 @@ def modlist():
 	return modlist
 
 def zip_all():
+	global block
 	s = globlist
 	m = modlist()
 	a = dice_lib.att_words()
 	w = dice_lib.mod_words()
-	length = len(a)
 	block = zip(a,s,w,m)
-	return block
 
 def display_block():
-	block = zip_all()
 	for line in block:
 		temp = []
 		for chunk in line:
 			temp.append(str(chunk))
 		print ' '.join(temp)
 
+def csv_choice():
+	print "\nSave to 'scroll.CSV'? y/n (or 666 to quit):"
+	choice = raw_input(prompt)
+	if choice == 'y':
+		dice_lib.csv_block(block)
+		display_block()
+	elif '666' in choice:
+		dice_lib.quit()
+	elif choice == 'n':
+		print '\nOK, moving on.'
+	else:
+		dice_lib.error_msg()
+		csv_choice()
+
 def quick_print():
+	zip_all()
 	display_block()
 	dice_lib.display_MT(modtotal)
+	csv_choice()
 	rolledmenu_stats()
 
 roll()

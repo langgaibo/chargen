@@ -1,10 +1,12 @@
 # coding: utf8
 # 朗盖博 2015 v1.4
+
 from sys import exit
+import csv
 
 prompt = '>: '
 
-version = '1.5'
+version = '1.6'
 
 def novel():
 	print '''
@@ -31,6 +33,8 @@ def novel():
 	+2 Str, +1 Con
 9. Tiefling:
 	+1 Int, +2 Cha
+
+77. Save current stats to CSV!
 
 88. Reroll base stats!
 
@@ -78,6 +82,14 @@ def not_a_choice():
 def quit():
 	print '\nDon\'t let the door hit you in the ass!\n'
 	exit(0)
+
+def csv_block(block):
+	fo = open("scroll.csv", 'wb')
+	wr = csv.writer(fo, quoting=csv.QUOTE_ALL)
+	for row in block:
+		wr.writerow(row)
+	fo.close()
+	print "\n'scroll.csv' overwritten with latest stats.\n"
 
 def off_the_bat(bat):
 	print ' '

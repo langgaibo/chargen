@@ -1,4 +1,5 @@
 # coding: utf8
+
 from random import randint
 import dice_lib
 
@@ -6,11 +7,12 @@ print '\nD&D simple character generator'
 print 'version %s 朗盖博 2015\n' % dice_lib.version
 
 statlist = []
+block = []
 modtotal = 0
 race_selected = 0
 racedict = {1:'human', 2:'dragonborn', 3:'dwarf', 4:'elf', 5:'gnome',
 6:'halfling', 7:'half_elf', 8:'half_orc', 9:'tiefling', 88:'do_over',
-99:'quit'}
+99:'quit', 666:'quit'}
 
 prompt = '>: '
 
@@ -38,6 +40,14 @@ def select_race():
 	print 'See the list above to review racial modifiers,'
 	print 'then enter the # to select race and apply mods:'
 	choice = int(raw_input(prompt))
+	if choice == 77:
+		#dice_lib.csv_block(block)
+		dice_lib.csv_block(block)
+		select_race()
+	else:
+		check_race(choice)
+
+def check_race(choice):
 	check = choice in racedict
 	if check:
 		# TODO(colin): see if str() is necessary here
@@ -88,15 +98,15 @@ def modlist():
 	return modlist
 
 def zip_all():
+	global block
 	s = statlist
 	m = modlist()
 	a = dice_lib.att_words()
 	w = dice_lib.mod_words()
 	block = zip(a,s,w,m)
-	return block
 
 def display_block():
-	block = zip_all()
+	zip_all()
 	for line in block:
 		temp = []
 		for chunk in line:
@@ -104,13 +114,39 @@ def display_block():
 		attempt = ' '.join(temp)
 		print attempt.center(40)
 
+def csv_choice():
+	print "\nSave to 'scroll.CSV'? y/n (or 666 to quit):"
+	choice = raw_input(prompt)
+	if choice == 'y':
+		dice_lib.csv_block(block)
+		if race_selected == 1:
+			reset = 'Starting over!'
+			print reset.center(40, '-')
+			mainmenu()
+		else:
+			judgement()
+	elif '666' in choice:
+		dice_lib.quit()
+	elif choice == 'n':
+		print '\nOK, moving on.'
+		if race_selected == 1:
+			reset = 'Starting over!'
+			print reset.center(40, '-')
+			mainmenu()
+		else:
+			judgement()
+	else:
+		dice_lib.error_msg()
+		csv_choice()
+
 def judgement():
 	global race_selected
-	
+
 	if race_selected == 1:
-		race_selected = 0
 		display_block()
 		dice_lib.display_MT(modtotal)
+		csv_choice()
+		#race_selected = 0
 		reset = 'Starting over!'
 		print reset.center(40, '-')
 		mainmenu()

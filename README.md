@@ -1,5 +1,8 @@
 # README #
 
+### Latest Changes ###
+Added basic CSV output functionality for rolled attributes. (version 1.6)
+
 ### About this repository ###
 Just a small project to learn python via D&D / Shadowrun dice rollers and character stat generators.
 
