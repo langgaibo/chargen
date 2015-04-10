@@ -55,7 +55,7 @@ def mod_words():
 	m_w = []
 	for i in range(6):
 		word = ' Mod:'
-		m_w.append(word.rjust(18, '-'))
+		m_w.append(word.rjust(8, ' '))
 	return m_w
 
 def display_MT(modtotal):
