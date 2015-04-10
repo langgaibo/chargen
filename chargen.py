@@ -41,7 +41,6 @@ def select_race():
 	print 'then enter the # to select race and apply mods:'
 	choice = int(raw_input(prompt))
 	if choice == 77:
-		#dice_lib.csv_block(block)
 		dice_lib.csv_block(block)
 		select_race()
 	else:
@@ -115,11 +114,13 @@ def display_block():
 		print attempt.center(40)
 
 def csv_choice():
+	global race_selected
 	print "\nSave to 'scroll.CSV'? y/n (or 666 to quit):"
 	choice = raw_input(prompt)
 	if choice == 'y':
 		dice_lib.csv_block(block)
 		if race_selected == 1:
+			race_selected = 0
 			reset = 'Starting over!'
 			print reset.center(40, '-')
 			mainmenu()
@@ -130,6 +131,7 @@ def csv_choice():
 	elif choice == 'n':
 		print '\nOK, moving on.'
 		if race_selected == 1:
+			race_selected = 0
 			reset = 'Starting over!'
 			print reset.center(40, '-')
 			mainmenu()
@@ -146,10 +148,6 @@ def judgement():
 		display_block()
 		dice_lib.display_MT(modtotal)
 		csv_choice()
-		#race_selected = 0
-		reset = 'Starting over!'
-		print reset.center(40, '-')
-		mainmenu()
 	else:
 		dice_lib.novel()
 		display_block()

@@ -70,7 +70,7 @@ def rolledmenu_stats():
 	elif '666' in choice:
 		dice_lib.quit()
 	else:
-		print 'Ok, starting over.\n\n'
+		csv_choice()
 		roll()
 	roll()
 
@@ -118,6 +118,7 @@ def dmod_stats():
 	else:
 		globlist = [i+mod for i in globlist]
 		print '\n\nNew Stats:\n'
+		#csv_choice()
 		quick_print()
 
 def basestat():
@@ -166,7 +167,6 @@ def csv_choice():
 	choice = raw_input(prompt)
 	if choice == 'y':
 		dice_lib.csv_block(block)
-		display_block()
 	elif '666' in choice:
 		dice_lib.quit()
 	elif choice == 'n':
@@ -179,7 +179,6 @@ def quick_print():
 	zip_all()
 	display_block()
 	dice_lib.display_MT(modtotal)
-	csv_choice()
 	rolledmenu_stats()
 
 roll()

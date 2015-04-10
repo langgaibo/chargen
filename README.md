@@ -16,7 +16,7 @@ I don't even play these games!
 ### How do I get set up? ###
 
 * Just run any of the modules via python from within the directory.
-* There is no configuration, but the chargen.py module needs the racestats.py module in the same directory, because I pushed a bunch of grunt functions to that supplementary module.
+* There is no configuration, but the chargen.py module needs the dice_lib.py module in the same directory, because I pushed a bunch of grunt functions to that supplementary module.
 
 ### Contribution guidelines ###
 
