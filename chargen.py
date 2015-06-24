@@ -53,7 +53,9 @@ def check_race(choice):
 	check = choice in racedict
 	if check:
 		# TODO(colin): see if str() is necessary here
-		val = str(racedict[choice])
+		# val = str(racedict[choice])
+		# answer(gabe) it wasn't!
+		val = racedict[choice]
 		wrap = 'to_add, race = dice_lib.%s()' % val
 		exec wrap
 		add_stats(to_add, race)

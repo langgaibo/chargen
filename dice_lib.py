@@ -107,7 +107,7 @@ def off_the_bat(bat):
 
 def do_over():
 	to_add = 'panda'
-	race = 'alot'
+	race = 'Not Selected'
 	return to_add, race
 
 def dragonborn():
