@@ -40,7 +40,10 @@ def select_race():
 	print 'See the list above to review racial modifiers,'
 	print 'then enter the # to select race and apply mods:'
 	choice = int(raw_input(prompt))
-	if choice == 77:
+	if choice == 66:
+		dice_lib.json_block(block)
+		select_race()
+	elif choice == 77:
 		dice_lib.csv_block(block)
 		select_race()
 	else:
@@ -113,11 +116,22 @@ def display_block():
 		attempt = ' '.join(temp)
 		print attempt.center(40)
 
-def csv_choice():
+def output_choice():
 	global race_selected
-	print "\nSave to 'scroll.CSV'? y/n (or 666 to quit):"
+	print "\nSave output? 'n' to skip saving,"
+	print "'j' for json, 'c' for csv, or '666' to quit:"
+
 	choice = raw_input(prompt)
-	if choice == 'y':
+	if choice == 'j':
+		dice_lib.json_block(block)
+		if race_selected == 1:
+			race_selected = 0
+			reset = 'Starting over!'
+			print reset.center(40, '-')
+			mainmenu()
+		else:
+			judgement()
+	elif choice == 'c':
 		dice_lib.csv_block(block)
 		if race_selected == 1:
 			race_selected = 0
@@ -139,7 +153,7 @@ def csv_choice():
 			judgement()
 	else:
 		dice_lib.error_msg()
-		csv_choice()
+		output_choice()
 
 def judgement():
 	global race_selected
@@ -147,7 +161,7 @@ def judgement():
 	if race_selected == 1:
 		display_block()
 		dice_lib.display_MT(modtotal)
-		csv_choice()
+		output_choice()
 	else:
 		dice_lib.novel()
 		display_block()
@@ -157,7 +171,7 @@ def judgement():
 def mainmenu():
 	print 'Input "r" to roll base stats, or "q" to quit.'
 	choice = raw_input(prompt)
-	
+
 	if choice == 'r':
 		generate_stats()
 		judgement()

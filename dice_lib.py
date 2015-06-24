@@ -1,12 +1,13 @@
 # coding: utf8
-# 朗盖博 2015 v1.4
+# 朗盖博 2015
 
 from sys import exit
 import csv
+import json
 
 prompt = '>: '
 
-version = '1.6'
+version = '1.7'
 
 def novel():
 	print '''
@@ -34,6 +35,8 @@ def novel():
 9. Tiefling:
 	+1 Int, +2 Cha
 
+66. Save current stats to JSON!
+
 77. Save current stats to CSV!
 
 88. Reroll base stats!
@@ -60,7 +63,7 @@ def mod_words():
 
 def display_MT(modtotal):
 	print '\nTotal mods = %i' % modtotal
-	
+
 	if modtotal >=3 and modtotal <= 8:
 		print 'Decent stats.\n'
 	elif modtotal > 8:
@@ -91,6 +94,13 @@ def csv_block(block):
 	fo.close()
 	print "\n'scroll.csv' overwritten with latest stats.\n"
 
+def json_block(block):
+	f = open("scroll.json", 'wb')
+	chunk = str(json.dumps(block))
+	f.write(chunk)
+	f.close()
+	print "\n'scroll.json' overwritten with latest stats.\n"
+
 def off_the_bat(bat):
 	print ' '
 	print bat.center(40, '.')
@@ -111,7 +121,7 @@ def dwarf():
 	race = 'Dwarf'
 	bat = 'First: +2 Constitution, beardo!'
 	off_the_bat(bat)
-	print '\nSelect a subrace!' 
+	print '\nSelect a subrace!'
 	print '"h" for Hill Dwarf (+1 Wis),'
 	print '"m" for Mountain Dwarf (+2 Str), or "q" to quit.'
 	subrace = raw_input(prompt)
@@ -125,7 +135,7 @@ def dwarf():
 		quit()
 	else:
 		to_add = not_a_choice()
-	
+
 	return to_add, race
 
 def elf():
@@ -205,7 +215,7 @@ def half_elf():
 	print '\nNow, type the abbrev. name of the first stat to +1 (i.e. "str").'
 	first = raw_input(prompt)
 	check1 = first in statdict
-	
+
 	if check1:
 		stat1 = statdict[first]
 	else:
