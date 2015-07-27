@@ -3,7 +3,7 @@
 from random import randint
 import dice_lib
 
-print '\nD&D simple character generator!'
+print '\nD&D simple character generator! '
 print 'version %s 朗盖博 2015\n' % dice_lib.version
 
 statlist = []
