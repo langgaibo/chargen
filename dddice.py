@@ -4,9 +4,8 @@
 import dice_lib
 from random import randint
 
-print '\nD&D simple dice roller'
-print 'Type "666" to exit at any midpoint.'
-print 'version %s 朗盖博 2015\n' % dice_lib.version
+print('\nD&D simple dice roller!')
+print('version %s\n' % dice_lib.version)
 
 globlist = []
 globsum = 0
@@ -15,7 +14,7 @@ block = []
 prompt = '>: '
 
 def roll():
-	print '\nHow many sides? Or enter 666 to quit, or 888 to quick-roll stats.'
+	print('\nHow many sides? Or enter 666 to quit, or 888 to quick-roll stats.')
 	num_sides = int(input(prompt))
 	if num_sides == 666:
 		dice_lib.quit()
@@ -32,7 +31,7 @@ def roll():
 		roll2(num_sides)
 
 def roll2(num_sides):
-	print 'How many dice to roll? Or enter 666 to quit.'
+	print('How many dice to roll? Or enter 666 to quit.')
 	num_dice = int(input(prompt))
 	if num_dice == 666:
 		dice_lib.quit()
@@ -47,13 +46,13 @@ def roll2(num_sides):
 		globlist = [ randint(1,num_sides) for num_dice in range(0,num_dice)]
 		global globsum
 		globsum = sum(globlist)
-		print globlist
-		print 'Total: %i' % globsum
+		print(globlist)
+		print('Total: %i' % globsum)
 		rolledmenu()
 
 def rolledmenu():
-	print 'Add modifier? y/n or "dm" to modify all rolls:'
-	choice = raw_input(prompt)
+	print('Add modifier? y/n or "dm" to modify all rolls:')
+	choice = input(prompt)
 	if 'y' in choice:
 		modifier()
 	elif 'dm' in choice:
@@ -63,20 +62,20 @@ def rolledmenu():
 	roll()
 
 def rolledmenu_stats():
-	print 'Modify all rolls? y/n or 666 to quit:'
-	choice = raw_input(prompt)
+	print('Modify all rolls? y/n or 666 to quit:')
+	choice = input(prompt)
 	if 'y' in choice:
 		dmod_stats()
 	elif '666' in choice:
 		dice_lib.quit()
 	else:
-		csv_choice()
+		output_choice()
 		roll()
 	roll()
 
 def modifier():
-	print 'Enter modifier (precede with "-" for negatives):'
-	mod = int(raw_input(prompt))
+	print('Enter modifier (precede with "-" for negatives):')
+	mod = int(input(prompt))
 	if mod >= 101:
 		dice_lib.error_msg()
 		roll()
@@ -85,13 +84,13 @@ def modifier():
 		roll()
 	else:
 		modsum = globsum + mod
-		print 'Total: %i' % modsum
+		print('Total: %i' % modsum)
 		roll()
 
 def dmod():
 	global globlist
-	print 'Enter modifier ("-" for negative):'
-	mod = int(raw_input(prompt))
+	print('Enter modifier ("-" for negative):')
+	mod = int(input(prompt))
 	if mod >= 101:
 		dice_lib.error_msg()
 		roll()
@@ -100,15 +99,15 @@ def dmod():
 		roll()
 	else:
 		globlist = [i+mod for i in globlist]
-		print 'Modified rolls: %r' % globlist
+		print('Modified rolls: %r' % globlist)
 		modsum = sum(globlist)
-		print 'Total: %i' % modsum
+		print('Total: %i' % modsum)
 		roll()
 
 def dmod_stats():
 	global globlist
-	print 'Enter modifier ("-" for negative):'
-	mod = int(raw_input(prompt))
+	print('Enter modifier ("-" for negative):')
+	mod = int(input(prompt))
 	if mod >= 101:
 		dice_lib.error_msg()
 		roll()
@@ -117,8 +116,7 @@ def dmod_stats():
 		roll()
 	else:
 		globlist = [i+mod for i in globlist]
-		print '\n\nNew Stats:\n'
-		#csv_choice()
+		print('\n\nNew Stats:\n')
 		quick_print()
 
 def basestat():
@@ -141,7 +139,7 @@ def modlist():
 			mod = -1
 			modlist.append(mod)
 		else:
-			mod = (stat - 10) / 2
+			mod = int((stat - 10) / 2)
 			modlist.append(mod)
 	global modtotal
 	modtotal = sum(modlist)
@@ -153,27 +151,31 @@ def zip_all():
 	m = modlist()
 	a = dice_lib.att_words()
 	w = dice_lib.mod_words()
-	block = zip(a,s,w,m)
+	block = list(zip(a,s,w,m))
 
 def display_block():
 	for line in block:
 		temp = []
 		for chunk in line:
 			temp.append(str(chunk))
-		print ' '.join(temp)
+		print(' '.join(temp))
 
-def csv_choice():
-	print "\nSave to 'scroll.CSV'? y/n (or 666 to quit):"
-	choice = raw_input(prompt)
-	if choice == 'y':
+def output_choice():
+	print("\nSave output? 'j' for json, 'c' for csv,")
+	print("'n' to move on without saving, or '666' to quit:")
+	choice = input(prompt)
+	if choice == 'j':
+		dice_lib.json_block(block)
+	elif choice == 'c':
 		dice_lib.csv_block(block)
+	elif choice == 'n':
+		print("\nOK, moving on.")
+		roll()
 	elif '666' in choice:
 		dice_lib.quit()
-	elif choice == 'n':
-		print '\nOK, moving on.'
 	else:
 		dice_lib.error_msg()
-		csv_choice()
+		output_choice()
 
 def quick_print():
 	zip_all()

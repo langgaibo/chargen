@@ -7,10 +7,10 @@ import json
 
 prompt = '>: '
 
-version = '1.7'
+version = '1.8 朗盖博 2021'
 
 def novel():
-	print '''
+	print("""
 1. Human:
 	+1 to all stats
 2. Dragonborn:
@@ -42,7 +42,7 @@ def novel():
 88. Reroll base stats!
 
 99. Quit!
-'''
+""")
 
 def att_words():
 	a_w = [
@@ -62,48 +62,48 @@ def mod_words():
 	return m_w
 
 def display_MT(modtotal):
-	print '\nTotal mods = %i' % modtotal
+	print('\nTotal mods = %i' % modtotal)
 
 	if modtotal >=3 and modtotal <= 8:
-		print 'Decent stats.\n'
+		print('Decent stats.\n')
 	elif modtotal > 8:
-		print 'Great stats!\n'
+		print('Great stats!\n')
 	else:
-		print 'Shit stats!\n'
+		print('Shit stats!\n')
 
 def error_msg():
-	print ' '
+	print(' ')
 	ding = '!!! What the fuck? !!!'
-	print ding.center(40)
-	print 'It looks like you entered some dumb shit, and I gave up.'
-	print "Let's try that again.\n"
+	print(ding.center(40))
+	print('It looks like you entered some dumb shit, and I gave up.')
+	print("Let's try that again.\n")
 
 def not_a_choice():
 	to_add = [0, 0, 0, 0, 0, 0]
 	return to_add
 
 def quit():
-	print '\nDon\'t let the door hit you in the ass!\n'
+	print('\nDon\'t let the door hit you in the ass!\n')
 	exit(0)
 
 def csv_block(block):
-	fo = open("scroll.csv", 'wb')
+	fo = open("scroll.csv", 'w')
 	wr = csv.writer(fo, quoting=csv.QUOTE_ALL)
 	for row in block:
 		wr.writerow(row)
 	fo.close()
-	print "\n'scroll.csv' overwritten with latest stats.\n"
+	print("\n'scroll.csv' overwritten with latest stats.\n")
 
 def json_block(block):
-	f = open("scroll.json", 'wb')
+	f = open("scroll.json", 'w')
 	chunk = str(json.dumps(block))
 	f.write(chunk)
 	f.close()
-	print "\n'scroll.json' overwritten with latest stats.\n"
+	print("\n'scroll.json' overwritten with latest stats.\n")
 
 def off_the_bat(bat):
-	print ' '
-	print bat.center(40, '.')
+	print(' ')
+	print(bat.center(40, '.'))
 
 def do_over():
 	to_add = 'panda'
@@ -121,10 +121,10 @@ def dwarf():
 	race = 'Dwarf'
 	bat = 'First: +2 Constitution, beardo!'
 	off_the_bat(bat)
-	print '\nSelect a subrace!'
-	print '"h" for Hill Dwarf (+1 Wis),'
-	print '"m" for Mountain Dwarf (+2 Str), or "q" to quit.'
-	subrace = raw_input(prompt)
+	print('\nSelect a subrace!')
+	print('"h" for Hill Dwarf (+1 Wis),')
+	print('"m" for Mountain Dwarf (+2 Str), or "q" to quit.')
+	subrace = input(prompt)
 	if subrace == 'h':
 		to_add = [0, 0, 2, 0, 1, 0]
 		race = 'Hill Dwarf'
@@ -142,11 +142,11 @@ def elf():
 	race = 'Elf'
 	bat = '+2 Dex, pointy!'
 	off_the_bat(bat)
-	print '\nSelect a subrace!'
-	print '"h" for High Elf (+1 Int),'
-	print '"w" for Wood Elf (+1 Wis),'
-	print '"d" for Drow (+1 Cha), or "q" to quit.'
-	subrace = raw_input(prompt)
+	print('\nSelect a subrace!')
+	print('"h" for High Elf (+1 Int),')
+	print('"w" for Wood Elf (+1 Wis),')
+	print('"d" for Drow (+1 Cha), or "q" to quit.')
+	subrace = input(prompt)
 	if subrace == 'h':
 		to_add = [0, 2, 0, 1, 0, 0]
 		race = 'High Elf'
@@ -167,10 +167,10 @@ def gnome():
 	race = 'Gnome'
 	bat = '+2 Int, Gizmo!'
 	off_the_bat(bat)
-	print '\nSelect a subrace!'
-	print '"f" for Forest Gnome (+1 Dex),'
-	print '"r" for Rock Gnome (+1 Con), or "q" to quit.'
-	subrace = raw_input(prompt)
+	print('\nSelect a subrace!')
+	print('"f" for Forest Gnome (+1 Dex),')
+	print('"r" for Rock Gnome (+1 Con), or "q" to quit.')
+	subrace = input(prompt)
 	if subrace == 'f':
 		to_add = [0, 1, 0, 2, 0, 0]
 		race = 'Forest Gnome'
@@ -188,10 +188,10 @@ def halfling():
 	race = 'Halfling'
 	bat = '+2 Dex, Samwise!'
 	off_the_bat(bat)
-	print '\nSelect a subrace!'
-	print '"l" for Lightfoot (+1 Cha),'
-	print '"s" for Stout (+1 Con), or "q" to quit.'
-	subrace = raw_input(prompt)
+	print('\nSelect a subrace!')
+	print('"l" for Lightfoot (+1 Cha),')
+	print('"s" for Stout (+1 Con), or "q" to quit.')
+	subrace = input(prompt)
 	if subrace == 'l':
 		to_add = [0, 2, 0, 0, 0, 1]
 		race = 'Lightfoot Halfling'
@@ -212,24 +212,24 @@ def half_elf():
 	stat2 = 0
 	bat = '+2 Cha, you sexy beast!'
 	off_the_bat(bat)
-	print '\nNow, type the abbrev. name of the first stat to +1 (i.e. "str").'
-	first = raw_input(prompt)
+	print('\nNow, type the abbrev. name of the first stat to +1 (i.e. "str").')
+	first = input(prompt)
 	check1 = first in statdict
 
 	if check1:
 		stat1 = statdict[first]
 	else:
-		print "What? error typing stat1.\n"
+		print("What? error typing stat1.\n")
 		to_add = not_a_choice()
 		return to_add, race
 
-	print '\n...now type the second stat to +1. DON\'T DOUBLE DOWN!'
-	second = raw_input(prompt)
+	print('\n...now type the second stat to +1. DON\'T DOUBLE DOWN!')
+	second = input(prompt)
 	check2 = second in statdict
 	if check2:
 		stat2 = statdict[second]
 	else:
-		print "What? error typing stat2.\n"
+		print("What? error typing stat2.\n")
 		to_add = not_a_choice()
 		return to_add, race
 
@@ -240,11 +240,11 @@ def half_elf():
 		taunt1 = 'I warned you, you cheating fuck!'
 		taunt2 = 'Original Charisma bonus gone, and...'
 		taunt3 = '-2 to %s!' % first
-		print ' '
-		print taunt1.center(40)
-		print taunt2.center(40)
-		print ' '
-		print taunt3.center(40, '.')
+		print(' ')
+		print(taunt1.center(40))
+		print(taunt2.center(40))
+		print(' ')
+		print(taunt3.center(40, '.'))
 		to_add[5] -= 2
 		to_add[stat1] -= 4
 		return to_add, race

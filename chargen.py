@@ -3,8 +3,8 @@
 from random import randint
 import dice_lib
 
-print '\nD&D simple character generator! '
-print 'version %s 朗盖博 2015\n' % dice_lib.version
+print('\nD&D simple character generator! ')
+print('version %s\n' % dice_lib.version)
 
 statlist = []
 block = []
@@ -37,9 +37,9 @@ def selected_check():
 
 def select_race():
 	selected_check()
-	print 'See the list above to review racial modifiers,'
-	print 'then enter the # to select race and apply mods:'
-	choice = int(raw_input(prompt))
+	print('See the list above to review racial modifiers,')
+	print('then enter the # to select race and apply mods:')
+	choice = int(input(prompt))
 	if choice == 66:
 		dice_lib.json_block(block)
 		select_race()
@@ -52,22 +52,22 @@ def select_race():
 def check_race(choice):
 	check = choice in racedict
 	if check:
-		# TODO(colin): see if str() is necessary here
-		# val = str(racedict[choice])
-		# answer(gabe) it wasn't!
+		ldict = {}
 		val = racedict[choice]
 		wrap = 'to_add, race = dice_lib.%s()' % val
-		exec wrap
+		exec(wrap, globals(),ldict)
+		to_add = ldict['to_add']
+		race = ldict['race']
 		add_stats(to_add, race)
 		mainmenu()
 	else:
-		print "\nWhat?\n"
+		print("\nWhat?\n")
 		select_race()
 
 def reroll():
 	global race_selected
 	race_selected = 0
-	print ' Rerolling!'
+	print(' Rerolling!')
 	generate_stats()
 	judgement()
 
@@ -84,7 +84,7 @@ def add_stats(to_add,race):
 	else:
 		for i in range(len(statlist)):
 			statlist[i] += addlist[i]
-		print '\nFINAL STATS for your %s:' % race
+		print('\nFINAL STATS for your %s:' % race)
 		judgement()
 
 def modlist():
@@ -95,7 +95,7 @@ def modlist():
 			mod = -1
 			modlist.append(mod)
 		else:
-			mod = (stat - 10) / 2
+			mod = int((stat - 10) / 2)
 			modlist.append(mod)
 	global modtotal
 	modtotal = sum(modlist)
@@ -107,7 +107,7 @@ def zip_all():
 	m = modlist()
 	a = dice_lib.att_words()
 	w = dice_lib.mod_words()
-	block = zip(a,s,w,m)
+	block = list(zip(a,s,w,m))
 
 def display_block():
 	zip_all()
@@ -116,20 +116,20 @@ def display_block():
 		for chunk in line:
 			temp.append(str(chunk))
 		attempt = ' '.join(temp)
-		print attempt.center(40)
+		print(attempt.center(40))
 
 def output_choice():
 	global race_selected
-	print "\nSave output? 'n' to skip saving,"
-	print "'j' for json, 'c' for csv, or '666' to quit:"
+	print("\nSave output? 'n' to skip saving,")
+	print("'j' for json, 'c' for csv, or '666' to quit:")
 
-	choice = raw_input(prompt)
+	choice = input(prompt)
 	if choice == 'j':
 		dice_lib.json_block(block)
 		if race_selected == 1:
 			race_selected = 0
 			reset = 'Starting over!'
-			print reset.center(40, '-')
+			print(reset.center(40, '-'))
 			mainmenu()
 		else:
 			judgement()
@@ -138,18 +138,18 @@ def output_choice():
 		if race_selected == 1:
 			race_selected = 0
 			reset = 'Starting over!'
-			print reset.center(40, '-')
+			print(reset.center(40, '-'))
 			mainmenu()
 		else:
 			judgement()
 	elif '666' in choice:
 		dice_lib.quit()
 	elif choice == 'n':
-		print '\nOK, moving on.'
+		print('\nOK, moving on.')
 		if race_selected == 1:
 			race_selected = 0
 			reset = 'Starting over!'
-			print reset.center(40, '-')
+			print(reset.center(40, '-'))
 			mainmenu()
 		else:
 			judgement()
@@ -171,8 +171,8 @@ def judgement():
 		select_race()
 
 def mainmenu():
-	print 'Input "r" to roll base stats, or "q" to quit.'
-	choice = raw_input(prompt)
+	print('Input "r" to roll base stats, or "q" to quit.')
+	choice = input(prompt)
 
 	if choice == 'r':
 		generate_stats()
@@ -180,7 +180,7 @@ def mainmenu():
 	elif choice == 'q':
 		dice_lib.quit()
 	else:
-		print 'What the fuck are you talking about? Try again.'
+		print('What the fuck are you talking about? Try again.')
 		mainmenu()
 
 mainmenu()

@@ -1,6 +1,7 @@
 # README #
 
 ### Latest Changes ###
+Migrated to Python 3. Both Character Generator and D&D Simple Dice roller now can export character stats to both JSON and CSV formats. (Version 1.8)
 Added option to save out as JSON from Chargen module. (Version 1.7)
 Added basic CSV output functionality for rolled attributes. (version 1.6)
 
@@ -16,6 +17,13 @@ I don't even play these games!
 
 ### How do I get set up? ###
 
-* Just run any of the modules via python from within the directory.
+* Just run any of the modules via Python 3 from within the repo root directory, e.g. `$ python3 chargen.py`
 * There is no configuration, but the chargen.py and dddice.py modules need the dice_lib.py module in the same directory, because I pushed a bunch of grunt functions to that supplementary module.
 
+### Planned Features ###
+* Locally hosted web GUI
+* Character Sheet module for use in realtime play featuring:
+    * HP, XP tracking and simple inventory
+    * Import stats generated via the other modules
+    * Export full character sheet to JSON
+* Refactor all modules into class-based OOP architecture
